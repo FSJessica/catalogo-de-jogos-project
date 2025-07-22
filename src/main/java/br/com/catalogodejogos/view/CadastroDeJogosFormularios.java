@@ -1,5 +1,7 @@
 package br.com.catalogodejogos.view;
 
+import br.com.catalogodejogos.app.Main;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +21,7 @@ public class CadastroDeJogosFormularios {
     private JButton buscarNosArquivosButton;
     private JButton processarButton;
     private JPanel rootPanel;
+    private JButton voltarButton;
 
 
     public CadastroDeJogosFormularios(){
@@ -42,13 +45,25 @@ public class CadastroDeJogosFormularios {
                 sb.append("Você colocou o número'" + spinner4.getValue() + "' no spinner.");
                 sb.append("Você colocou o número'" + spinner5.getValue() + "' no spinner.");
 
-                //botão de procurar aquivos
-                buscarNosArquivosButton.addActionListener(new ActionListener(){
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        System.out.println("Bucar arquivos pressionado!");
-                    }
-                });
+
+                // exibir resultado
+                JOptionPane.showMessageDialog(null, sb.toString(), "Informações do Jogo", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        //botão de procurar aquivos
+        buscarNosArquivosButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("Bucar arquivos pressionado!");
+            }
+        });
+
+        voltarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed (ActionEvent e){
+                MainPanel mainPanel = new MainPanel();
+                Main.updateFrameWithNewPanel(mainPanel);
             }
         });
     }
