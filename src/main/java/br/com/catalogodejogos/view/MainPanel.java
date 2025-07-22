@@ -31,7 +31,8 @@ public class MainPanel extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 // ação do botão
-                JOptionPane.showMessageDialog(null, "Ver lista de jogos clicado!");
+                VerListaJogos verLista = new VerListaJogos();
+                Main.updateFrameWithNewPanel(verLista);
             }
         });
 
