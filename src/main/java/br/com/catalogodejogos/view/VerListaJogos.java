@@ -40,7 +40,14 @@ public class VerListaJogos extends JPanel {
         maisDetalhesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
 
+                if (selectedRow == -1){
+                    JOptionPane.showMessageDialog(null, "Selecione um jogo na tabela primeiro!");
+                    return;
+                }
+                DetalhesJogos detalhes = new DetalhesJogos();
+                Main.updateFrameWithNewPanel(detalhes.getPanel1());
             }
         });
         voltarButton.addActionListener(new ActionListener() {
