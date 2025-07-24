@@ -46,8 +46,19 @@ public class VerListaJogos extends JPanel {
                     JOptionPane.showMessageDialog(null, "Selecione um jogo na tabela primeiro!");
                     return;
                 }
-                DetalhesJogos detalhes = new DetalhesJogos();
-                Main.updateFrameWithNewPanel(detalhes.getPanel1());
+
+                String nomeJogo = table1.getValueAt(table1.getSelectedRow(),0).toString();
+                String descricaoJogo = table1.getValueAt(table1.getSelectedRow(),1).toString();
+
+                //DEBUG verificar se está recebendo os dados certos:
+                System.out.println("Selecionado: " + nomeJogo + " - " + descricaoJogo);
+                System.out.println("Botão clicado");
+                System.out.println("Selecionado: " + nomeJogo + ", " + descricaoJogo);
+
+                //Cria o painel de detalhes com os dados
+                //DetalhesJogos detalhes = new DetalhesJogos(nomeJogo, descricaoJogo);
+                Main.updateFrameWithNewPanel(new DetalhesJogos(nomeJogo, descricaoJogo).getPanel1());
+
             }
         });
         voltarButton.addActionListener(new ActionListener() {
@@ -60,7 +71,9 @@ public class VerListaJogos extends JPanel {
         // No TabelaPanel.form está a visualização gráfica de como o painel irá se comportar. Depois disso
         // chamo o método da classe main para atualizar o frame com o meu novo painel.
 //        updateFrameWithNewPanel(VerListaJogos);
-        add(panel1);
+//        add(panel1);
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(panel1);
     }
 
 }
