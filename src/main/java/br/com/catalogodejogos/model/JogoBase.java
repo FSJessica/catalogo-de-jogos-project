@@ -5,13 +5,13 @@ public class JogoBase {
     private String nome;
     private String descricaoJogo;
     private byte[] imagem;
-    private short qtdMinJogador;
-    private short qtdMaxJogador;
+    private int qtdMinJogador;
+    private int qtdMaxJogador;
     private String detalheQtdJogador;
-    private short idadeMin;
+    private int idadeMin;
     private String detalheIdadeMin;
-    private short duracaoMinPrtd;
-    private short duracaoMaxPrtd;
+    private int duracaoMinPrtd;
+    private int duracaoMaxPrtd;
     private String detalheDuracaoPrtd;
     private String comentarios;
 
@@ -47,19 +47,19 @@ public class JogoBase {
         this.imagem = imagem;
     }
 
-    public short getQtdMinJogador() {
+    public int  getQtdMinJogador() {
         return qtdMinJogador;
     }
 
-    public void setQtdMinJogador(short qtdMinJogador) {
+    public void setQtdMinJogador(int qtdMinJogador) {
         this.qtdMinJogador = qtdMinJogador;
     }
 
-    public short getQtdMaxJogador() {
+    public int getQtdMaxJogador() {
         return qtdMaxJogador;
     }
 
-    public void setQtdMaxJogador(short qtdMaxJogador) {
+    public void setQtdMaxJogador(int qtdMaxJogador) {
         this.qtdMaxJogador = qtdMaxJogador;
     }
 
@@ -67,11 +67,11 @@ public class JogoBase {
 
     public void setDetalheQtdJogador(String detalheQtdJogador) { this.detalheQtdJogador = detalheQtdJogador; }
 
-    public short getIdadeMin() {
+    public int getIdadeMin() {
         return idadeMin;
     }
 
-    public void setIdadeMin(short idadeMin) {
+    public void setIdadeMin(int idadeMin) {
         this.idadeMin = idadeMin;
     }
 
@@ -83,15 +83,15 @@ public class JogoBase {
         this.detalheIdadeMin = detalheIdadeMin;
     }
 
-    public short getDuracaoMinPrtd() {
+    public int getDuracaoMinPrtd() {
         return duracaoMinPrtd;
     }
 
-    public void setDuracaoMinPrtd(short duracaoMinPrtd) { this.duracaoMinPrtd = duracaoMinPrtd; }
+    public void setDuracaoMinPrtd(int duracaoMinPrtd) { this.duracaoMinPrtd = duracaoMinPrtd; }
 
-    public short getDuracaoMaxPrtd() { return duracaoMaxPrtd;  }
+    public int getDuracaoMaxPrtd() { return duracaoMaxPrtd;  }
 
-    public void setDuracaoMaxPrtd(short duracaoMaxPrtd) { this.duracaoMaxPrtd = duracaoMaxPrtd; }
+    public void setDuracaoMaxPrtd(int duracaoMaxPrtd) { this.duracaoMaxPrtd = duracaoMaxPrtd; }
 
     public String getDetalheDuracaoPrtd() { return detalheDuracaoPrtd;  }
 

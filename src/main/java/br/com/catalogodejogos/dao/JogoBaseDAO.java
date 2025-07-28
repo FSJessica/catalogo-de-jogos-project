@@ -19,13 +19,13 @@ public class JogoBaseDAO {
         String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios, descricao_jogo_base) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, jogobase.getNome());
-        statement.setShort(2,jogobase.getQtdMinJogador());
-        statement.setShort(3, jogobase.getQtdMaxJogador());
+        statement.setInt(2,jogobase.getQtdMinJogador());
+        statement.setInt(3, jogobase.getQtdMaxJogador());
         statement.setString(4, jogobase.getDetalheQtdJogador());
-        statement.setShort(5, jogobase.getIdadeMin());
+        statement.setInt(5, jogobase.getIdadeMin());
         statement.setString(6, jogobase.getDetalheIdadeMin());
-        statement.setShort(7, jogobase.getDuracaoMinPrtd());
-        statement.setShort(8, jogobase.getDuracaoMaxPrtd());
+        statement.setInt(7, jogobase.getDuracaoMinPrtd());
+        statement.setInt(8, jogobase.getDuracaoMaxPrtd());
         statement.setString(9, jogobase.getDetalheDuracaoPrtd());
         statement.setString(10, jogobase.getComentarios());
         statement.setString(11, jogobase.getDescricaoJogo());
