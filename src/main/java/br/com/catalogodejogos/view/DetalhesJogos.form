@@ -114,7 +114,7 @@
           <text value="Comentários extras"/>
         </properties>
       </component>
-      <component id="65c8e" class="javax.swing.JTextField" binding="textField1">
+      <component id="65c8e" class="javax.swing.JTextField" binding="nomeTextField">
         <constraints>
           <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -124,7 +124,7 @@
           <text value="Xadrez"/>
         </properties>
       </component>
-      <component id="a3512" class="javax.swing.JTextField" binding="textField2">
+      <component id="a3512" class="javax.swing.JTextField" binding="descricaoTextField">
         <constraints>
           <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -134,7 +134,7 @@
           <text value="Jogo de estratégia "/>
         </properties>
       </component>
-      <component id="64b36" class="javax.swing.JTextField" binding="textField3">
+      <component id="64b36" class="javax.swing.JTextField" binding="imagemTextField">
         <constraints>
           <grid row="2" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -144,7 +144,7 @@
           <text value="Imagem"/>
         </properties>
       </component>
-      <component id="d31e5" class="javax.swing.JTextField" binding="textField4">
+      <component id="d31e5" class="javax.swing.JTextField" binding="qtdMinJogadorTextField">
         <constraints>
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -154,7 +154,7 @@
           <text value="2"/>
         </properties>
       </component>
-      <component id="aca9e" class="javax.swing.JTextField" binding="textField5">
+      <component id="aca9e" class="javax.swing.JTextField" binding="qtdMaxJogadorTextField">
         <constraints>
           <grid row="4" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -164,7 +164,7 @@
           <text value="2"/>
         </properties>
       </component>
-      <component id="b89a0" class="javax.swing.JTextField" binding="textField6">
+      <component id="b89a0" class="javax.swing.JTextField" binding="detalheQtdJogadorTextField">
         <constraints>
           <grid row="5" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -174,7 +174,7 @@
           <text value="Jogo permite apenas 2 jogadores"/>
         </properties>
       </component>
-      <component id="e9414" class="javax.swing.JTextField" binding="textField7">
+      <component id="e9414" class="javax.swing.JTextField" binding="idadeMinTextField">
         <constraints>
           <grid row="6" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="46"/>
@@ -184,7 +184,7 @@
           <text value="7"/>
         </properties>
       </component>
-      <component id="c2488" class="javax.swing.JTextField" binding="textField8">
+      <component id="c2488" class="javax.swing.JTextField" binding="detalheIdadeMinTextField">
         <constraints>
           <grid row="7" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -194,7 +194,7 @@
           <text value="Não há detalhes"/>
         </properties>
       </component>
-      <component id="76a" class="javax.swing.JTextField" binding="textField9">
+      <component id="76a" class="javax.swing.JTextField" binding="duracaoMinPrtdTextField">
         <constraints>
           <grid row="8" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -204,7 +204,7 @@
           <text value="20 minutos"/>
         </properties>
       </component>
-      <component id="40630" class="javax.swing.JTextField" binding="textField10">
+      <component id="40630" class="javax.swing.JTextField" binding="duracaoMaxPrtdTextField">
         <constraints>
           <grid row="9" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -214,7 +214,7 @@
           <text value="40 minutos"/>
         </properties>
       </component>
-      <component id="97d41" class="javax.swing.JTextField" binding="textField11">
+      <component id="97d41" class="javax.swing.JTextField" binding="detalheDuracaoPrtdTextField">
         <constraints>
           <grid row="10" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>
@@ -224,7 +224,7 @@
           <text value="Duração variável dependendo dos jogadores"/>
         </properties>
       </component>
-      <component id="c34d8" class="javax.swing.JTextField" binding="textField12">
+      <component id="c34d8" class="javax.swing.JTextField" binding="comentariosTextField">
         <constraints>
           <grid row="11" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
             <preferred-size width="150" height="-1"/>

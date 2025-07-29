@@ -26,13 +26,7 @@ public class VerListaJogos extends JPanel {
     public VerListaJogos(){
         //criando array de string para funcionar como o cabeçalho da tabela.
         String [] cabecalho = new String [] {"Jogo", "Categoria e descrição"};
-                
-//        //Matriz pra comportar os dados da tabela.
-//        String [] [] dados = new String[][]{
-//                {"Jogo 1", "party game"},
-//                {"Jogo 2", "Estratégia"},
-//                {"Jogo 3", "Cooperativo"}
-//        };
+
 
         List<JogoBase> listaJogos = new ArrayList<>();
         try{
@@ -44,21 +38,36 @@ public class VerListaJogos extends JPanel {
             ex.printStackTrace();
         }
 
-        //Preencher dados com base na lista
-        String[][] dados = new String[listaJogos.size()][2];
-        for(int i = 0; i<listaJogos.size(); i++){
-            dados [i] [0] = listaJogos.get(i).getNome();
-            dados [i] [1] = listaJogos.get(i).getDescricaoJogo();
-        }
+//        //Preencher dados com base na lista
+//        String[][] dados = new String[listaJogos.size()][2];
+//        for(int i = 0; i<listaJogos.size(); i++){
+//            dados [i] [0] = listaJogos.get(i).getNome();
+//            dados [i] [1] = listaJogos.get(i).getDescricaoJogo();
+//        }
 
-        //Modelo da tabela(impede edição de células)
-        DefaultTableModel model = new DefaultTableModel(dados, cabecalho){
-            @Override
-            public boolean isCellEditable(int column, int row) {
-                return false;
+        List<JogoBase> jogos;
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome"}, 0);
+        try {
+            Connection conexao = DataBaseConnection.getconnection();
+            JogoBaseDAO dao = new JogoBaseDAO(conexao);
+            jogos = dao.ler();
+
+            for(JogoBase jogo : jogos){
+                model.addRow(new Object[]{jogo.getIdJogo(), jogo.getNome()});
             }
-        };
+        }catch (SQLException ex){
+            ex.printStackTrace();
+        }
         table1.setModel(model);
+
+//        //Modelo da tabela(impede edição de células)
+//        DefaultTableModel modelBd = new DefaultTableModel(dados, cabecalho){
+//            @Override
+//            public boolean isCellEditable(int column, int row) {
+//                return false;
+//            }
+//        };
+//        table1.setModel(modelBd);
 
         //ação do botão "mais detalhes"
         maisDetalhesButton.addActionListener(new ActionListener() {
@@ -71,31 +80,45 @@ public class VerListaJogos extends JPanel {
                     return;
                 }
 
-                String nomeJogo = table1.getValueAt(table1.getSelectedRow(),0).toString();
-                String descricaoJogo = table1.getValueAt(table1.getSelectedRow(),1).toString();
+                int idSelecionado = (int) table1.getValueAt(selectedRow, 0);
 
-                //DEBUG verificar se está recebendo os dados certos:
-                System.out.println("Selecionado: " + nomeJogo + " - " + descricaoJogo);
-                System.out.println("Botão clicado");
-                System.out.println("Selecionado: " + nomeJogo + ", " + descricaoJogo);
+                try{
+                    Connection conexao = DataBaseConnection.getconnection();
+                    JogoBaseDAO dao = new JogoBaseDAO(conexao);
+                    JogoBase jogo = dao.buscarPorId(idSelecionado);
 
-                //Cria o painel de detalhes com os dados
-                //DetalhesJogos detalhes = new DetalhesJogos(nomeJogo, descricaoJogo);
-                Main.updateFrameWithNewPanel(new DetalhesJogos(nomeJogo, descricaoJogo).getPanel1());
+                    if (jogo != null) {
+                        Main.updateFrameWithNewPanel(new DetalhesJogos(jogo).getPanel1());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Jogo não encontrado no banco de dados.");
+                    }
+                }catch (SQLException ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar jogo.");
+                }
+//
+//                String nomeJogo = table1.getValueAt(table1.getSelectedRow(),0).toString();
+//                String descricaoJogo = table1.getValueAt(table1.getSelectedRow(),1).toString();
+
+//                //DEBUG verificar se está recebendo os dados certos:
+//                System.out.println("Selecionado: " + nomeJogo + " - " + descricaoJogo);
+//                System.out.println("Botão clicado");
+//                System.out.println("Selecionado: " + nomeJogo + ", " + descricaoJogo);
+//
+//                //Cria o painel de detalhes com os dados
+//                //DetalhesJogos detalhes = new DetalhesJogos(nomeJogo, descricaoJogo);
+//                Main.updateFrameWithNewPanel(new DetalhesJogos(nomeJogo, descricaoJogo).getPanel1());
 
             }
         });
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e){
-//                MainPanel mainPanel = new MainPanel();
                 Main.updateFrameWithNewPanel(new MainPanel());
             }
         });
         // No TabelaPanel.form está a visualização gráfica de como o painel irá se comportar. Depois disso
         // chamo o método da classe main para atualizar o frame com o meu novo painel.
-//        updateFrameWithNewPanel(VerListaJogos);
-//        add(panel1);
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(panel1);
     }
