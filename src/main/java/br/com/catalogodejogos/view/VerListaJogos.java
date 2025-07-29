@@ -6,6 +6,14 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import br.com.catalogodejogos.dao.JogoBaseDAO;
+import br.com.catalogodejogos.infra.DataBaseConnection;
+import br.com.catalogodejogos.model.JogoBase;
 
 import static br.com.catalogodejogos.view.MainPanel.updateFrameWithNewPanel;
 
@@ -17,15 +25,31 @@ public class VerListaJogos extends JPanel {
 
     public VerListaJogos(){
         //criando array de string para funcionar como o cabeçalho da tabela.
-        String [] cabecalho = new String [] {"Jogo", "Categoria"};
+        String [] cabecalho = new String [] {"Jogo", "Categoria e descrição"};
                 
-        //Matriz pra comportar os dados da tabela.
-        String [] [] dados = new String[][]{
-                {"Jogo 1", "party game"},
-                {"Jogo 2", "Estratégia"},
-                {"Jogo 3", "Cooperativo"}
-        };
+//        //Matriz pra comportar os dados da tabela.
+//        String [] [] dados = new String[][]{
+//                {"Jogo 1", "party game"},
+//                {"Jogo 2", "Estratégia"},
+//                {"Jogo 3", "Cooperativo"}
+//        };
 
+        List<JogoBase> listaJogos = new ArrayList<>();
+        try{
+            Connection conexao = DataBaseConnection.getconnection();
+            JogoBaseDAO dao = new JogoBaseDAO(conexao);
+            listaJogos = dao.ler();
+        }catch (SQLException ex){
+            JOptionPane.showMessageDialog(null,"Erro ao buscar jogos no banco: " + ex.getMessage());
+            ex.printStackTrace();
+        }
+
+        //Preencher dados com base na lista
+        String[][] dados = new String[listaJogos.size()][2];
+        for(int i = 0; i<listaJogos.size(); i++){
+            dados [i] [0] = listaJogos.get(i).getNome();
+            dados [i] [1] = listaJogos.get(i).getDescricaoJogo();
+        }
 
         //Modelo da tabela(impede edição de células)
         DefaultTableModel model = new DefaultTableModel(dados, cabecalho){
