@@ -51,12 +51,22 @@ public class CadastroDeJogosFormularios {
                 int qtdMaxJog = (Integer) quantidadeMaximaJogadorSpinner.getValue();
                 int idadeMin = (Integer) idadeMinimaSpinner.getValue();
                 int duracaoMin = (Integer) duracaoMinimaPartidaSpinner.getValue();
+                int duracaoMax = (Integer) duracaoMaximaPartidaSpinner.getValue();
 
-                if (qtdMinJog <= 0 || qtdMaxJog <= 0 || idadeMin <= 0 || duracaoMin <= 0) {
+                if (qtdMinJog <= 0 || qtdMaxJog <= 0 || idadeMin <= 0 || duracaoMin <= 0 || duracaoMax <= 0) {
                     JOptionPane.showMessageDialog(null, "Valores numéricos não podem ser zero ou negativos!", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
+                if (qtdMinJog > qtdMaxJog){
+                    JOptionPane.showMessageDialog(null,"Quantidade mínima de jogadores não pode ser maior que a quantidade máxima de jogadores", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (duracaoMin > duracaoMax){
+                    JOptionPane.showMessageDialog(null,"Duração mínima da partida não pode ser maior que a duração máxima da partida", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
 
 
 
