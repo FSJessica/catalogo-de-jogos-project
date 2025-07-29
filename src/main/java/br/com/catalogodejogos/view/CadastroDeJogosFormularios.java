@@ -33,23 +33,39 @@ public class CadastroDeJogosFormularios {
         processarButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validação de campos obrigatórios:
+                String nome = nomeTextField.getText().trim();
+                String descricao = descricaoJogoTextField.getText().trim();
+
+                if (nome.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "O campo 'Nome' é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (descricao.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "O campo 'Descrição' é obrigatório!", "Erro",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int qtdMinJog = (Integer) quantidadeMinimaJogadorSpinner.getValue();
+                int qtdMaxJog = (Integer) quantidadeMaximaJogadorSpinner.getValue();
+                int idadeMin = (Integer) idadeMinimaSpinner.getValue();
+                int duracaoMin = (Integer) duracaoMinimaPartidaSpinner.getValue();
+
+                if (qtdMinJog <= 0 || qtdMaxJog <= 0 || idadeMin <= 0 || duracaoMin <= 0) {
+                    JOptionPane.showMessageDialog(null, "Valores numéricos não podem ser zero ou negativos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
+
+
+
                 StringBuilder sb = new StringBuilder();
 
-//                // recuperar informação do textField
-//                sb.append ("Você digitou '" + nomeTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + descricaoJogoTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalhesQuantidadeJogadorTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalheIdadeMínimaTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalheDuracaoPartidaTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + comentariosExtrasTextField.getText() + "' no texto.");
-//
-//                //recuperar valor do spinner
-//                sb.append("Você colocou o número'" + quantidadeMinimaJogadorSpinner.getValue() + "' no spinner.");
-//                sb.append("Você colocou o número'" + quantidadeMaximaJogadorSpinner.getValue() + "' no spinner.");
-//                sb.append("Você colocou o número'" + idadeMinimaSpinner.getValue() + "' no spinner.");
-//                sb.append("Você colocou o número'" + duracaoMinimaPartidaSpinner.getValue() + "' no spinner.");
-//                sb.append("Você colocou o número'" + duracaoMaximaPartidaSpinner.getValue() + "' no spinner.");
 
+
+//              Construção do objeto:
                 JogoBase jogoBase = new JogoBase();
                 jogoBase.setNome(nomeTextField.getText());
                 jogoBase.setDescricaoJogo(descricaoJogoTextField.getText());
@@ -69,10 +85,10 @@ public class CadastroDeJogosFormularios {
                     Connection conexao = DataBaseConnection.getconnection();
                     JogoBaseDAO dao = new JogoBaseDAO(conexao);
                     dao.criar(jogoBase);
-                    JOptionPane.showMessageDialog(null, sb.toString(), "Cadastro realizado com sucesso!", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException ex) {
-                    JOptionPane.showMessageDialog(null, sb.toString(), "O cadastro falhou", JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Cadastro falhou!", "Informações", JOptionPane.INFORMATION_MESSAGE);
                     throw new RuntimeException(ex);
 
                 }
