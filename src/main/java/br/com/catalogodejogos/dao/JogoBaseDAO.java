@@ -86,11 +86,22 @@ public class JogoBaseDAO {
     }
 
     public void atualizar(JogoBase jogobase) throws  SQLException{
-        String sql = "UPDATE tb_jogo_base SET nome = ?, detalhe_qtd_jogador = ? WHERE id_jogo = ?";
+        String sql = "UPDATE tb_jogo_base SET nome = ?, descricao_jogo_base =?, imagem = ?, qtd_min_jogador = ?, qtd_max_jogador = ?, detalhe_qtd_jogador = ? , idade_min = ?, detalhe_idade_min = ?, duracao_min_prtd = ?, duracao_max_prtd = ?, detalhe_duracao_prtd = ?,  comentarios = ? WHERE id_jogo = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, jogobase.getNome());
-        statement.setString(2, jogobase.getDetalheQtdJogador());
-        statement.setInt(3, jogobase.getIdJogo());
+        statement.setString(2, jogobase.getDescricaoJogo());
+        statement.setBytes(3, jogobase.getImagem());
+        statement.setInt(4, jogobase.getQtdMinJogador());
+        statement.setInt(5, jogobase.getQtdMaxJogador());
+        statement.setString(6, jogobase.getDetalheQtdJogador());
+        statement.setInt(7, jogobase.getIdadeMin());
+        statement.setString(8, jogobase.getDetalheIdadeMin());
+        statement.setInt(9, jogobase.getDuracaoMinPrtd());
+        statement.setInt(10, jogobase.getDuracaoMaxPrtd());
+        statement.setString(11, jogobase.getDetalheDuracaoPrtd());
+        statement.setString(12, jogobase.getComentarios());
+        statement.setInt(13, jogobase.getIdJogo());
+
         statement.executeUpdate();
 
     }

@@ -15,13 +15,12 @@ import br.com.catalogodejogos.dao.JogoBaseDAO;
 import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.JogoBase;
 
-import static br.com.catalogodejogos.view.MainPanel.updateFrameWithNewPanel;
-
 public class VerListaJogos extends JPanel {
     private JTable table1;
     private JPanel panel1;
     private JButton maisDetalhesButton;
     private JButton voltarButton;
+    private JButton deletarButton;
 
     public VerListaJogos(){
         //criando array de string para funcionar como o cabeçalho da tabela.
@@ -121,6 +120,13 @@ public class VerListaJogos extends JPanel {
         // chamo o método da classe main para atualizar o frame com o meu novo painel.
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(panel1);
+
+        deletarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
 }
