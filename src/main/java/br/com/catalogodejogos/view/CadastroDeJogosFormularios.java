@@ -1,23 +1,28 @@
 package br.com.catalogodejogos.view;
 
 import br.com.catalogodejogos.app.Main;
+import br.com.catalogodejogos.dao.JogoBaseDAO;
+import br.com.catalogodejogos.infra.DataBaseConnection;
+import br.com.catalogodejogos.model.JogoBase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class CadastroDeJogosFormularios {
-    private JTextField textField1;
-    private JTextField textField2;
-    private JSpinner spinner1;
-    private JSpinner spinner2;
-    private JTextField textField3;
-    private JSpinner spinner3;
-    private JTextField textField4;
-    private JSpinner spinner4;
-    private JSpinner spinner5;
-    private JTextField textField5;
-    private JTextField textField6;
+    private JTextField nomeTextField;
+    private JTextField descricaoJogoTextField;
+    private JSpinner quantidadeMinimaJogadorSpinner;
+    private JSpinner quantidadeMaximaJogadorSpinner;
+    private JTextField detalhesQuantidadeJogadorTextField;
+    private JSpinner idadeMinimaSpinner;
+    private JTextField detalheIdadeMínimaTextField;
+    private JSpinner duracaoMinimaPartidaSpinner;
+    private JSpinner duracaoMaximaPartidaSpinner;
+    private JTextField detalheDuracaoPartidaTextField;
+    private JTextField comentariosExtrasTextField;
     private JButton buscarNosArquivosButton;
     private JButton processarButton;
     private JPanel rootPanel;
@@ -28,26 +33,75 @@ public class CadastroDeJogosFormularios {
         processarButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+                // Validação de campos obrigatórios:
+                String nome = nomeTextField.getText().trim();
+                String descricao = descricaoJogoTextField.getText().trim();
+
+                if (nome.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "O campo 'Nome' é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (descricao.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "O campo 'Descrição' é obrigatório!", "Erro",JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                int qtdMinJog = (Integer) quantidadeMinimaJogadorSpinner.getValue();
+                int qtdMaxJog = (Integer) quantidadeMaximaJogadorSpinner.getValue();
+                int idadeMin = (Integer) idadeMinimaSpinner.getValue();
+                int duracaoMin = (Integer) duracaoMinimaPartidaSpinner.getValue();
+                int duracaoMax = (Integer) duracaoMaximaPartidaSpinner.getValue();
+
+                if (qtdMinJog <= 0 || qtdMaxJog <= 0 || idadeMin <= 0 || duracaoMin <= 0 || duracaoMax <= 0) {
+                    JOptionPane.showMessageDialog(null, "Valores numéricos não podem ser zero ou negativos!", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (qtdMinJog > qtdMaxJog){
+                    JOptionPane.showMessageDialog(null,"Quantidade mínima de jogadores não pode ser maior que a quantidade máxima de jogadores", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+                if (duracaoMin > duracaoMax){
+                    JOptionPane.showMessageDialog(null,"Duração mínima da partida não pode ser maior que a duração máxima da partida", "Erro", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+
+
+
+
                 StringBuilder sb = new StringBuilder();
 
-                // recuperar informação do textField
-                sb.append ("Você digitou '" + textField1.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField2.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField3.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField4.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField5.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField6.getText() + "' no texto.");
-
-                //recuperar valor do spinner
-                sb.append("Você colocou o número'" + spinner1.getValue() + "' no spinner.");
-                sb.append("Você colocou o número'" + spinner2.getValue() + "' no spinner.");
-                sb.append("Você colocou o número'" + spinner3.getValue() + "' no spinner.");
-                sb.append("Você colocou o número'" + spinner4.getValue() + "' no spinner.");
-                sb.append("Você colocou o número'" + spinner5.getValue() + "' no spinner.");
 
 
-                // exibir resultado
-                JOptionPane.showMessageDialog(null, sb.toString(), "Informações do Jogo", JOptionPane.INFORMATION_MESSAGE);
+//              Construção do objeto:
+                JogoBase jogoBase = new JogoBase();
+                jogoBase.setNome(nomeTextField.getText());
+                jogoBase.setDescricaoJogo(descricaoJogoTextField.getText());
+                jogoBase.setDetalheQtdJogador(detalhesQuantidadeJogadorTextField.getText());
+                jogoBase.setDetalheIdadeMin(detalheIdadeMínimaTextField.getText());
+                jogoBase.setDetalheDuracaoPrtd(detalheDuracaoPartidaTextField.getText());
+                jogoBase.setComentarios(comentariosExtrasTextField.getText());
+
+                jogoBase.setQtdMinJogador((int) quantidadeMinimaJogadorSpinner.getValue());
+                jogoBase.setQtdMaxJogador((int) quantidadeMaximaJogadorSpinner.getValue());
+                jogoBase.setIdadeMin((int) idadeMinimaSpinner.getValue());
+                jogoBase.setDuracaoMinPrtd((int) duracaoMinimaPartidaSpinner.getValue());
+                jogoBase.setDuracaoMaxPrtd((int) duracaoMaximaPartidaSpinner.getValue());
+
+
+                try {
+                    Connection conexao = DataBaseConnection.getconnection();
+                    JogoBaseDAO dao = new JogoBaseDAO(conexao);
+                    dao.criar(jogoBase);
+                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
+
+                } catch (SQLException ex) {
+                    JOptionPane.showMessageDialog(null, "Cadastro falhou!", "Informações", JOptionPane.INFORMATION_MESSAGE);
+                    throw new RuntimeException(ex);
+
+                }
             }
         });
 
@@ -59,6 +113,7 @@ public class CadastroDeJogosFormularios {
             }
         });
 
+        //botão de voltar
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent e){

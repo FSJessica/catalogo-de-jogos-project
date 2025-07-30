@@ -1,57 +1,71 @@
 package br.com.catalogodejogos.view;
 
 import br.com.catalogodejogos.app.Main;
+import br.com.catalogodejogos.model.JogoBase;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 public class DetalhesJogos {
 
     private JPanel panel1;
     private JButton salvarButton;
     private JButton voltarButton;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
-    private JTextField textField8;
-    private JTextField textField9;
-    private JTextField textField10;
-    private JTextField textField11;
-    private JTextField textField12;
+    private JTextField nomeTextField;
+    private JTextField descricaoTextField;
+    private JTextField imagemTextField;
+    private JTextField qtdMinJogadorTextField;
+    private JTextField qtdMaxJogadorTextField;
+    private JTextField detalheQtdJogadorTextField;
+    private JTextField idadeMinTextField;
+    private JTextField detalheIdadeMinTextField;
+    private JTextField duracaoMinPrtdTextField;
+    private JTextField duracaoMaxPrtdTextField;
+    private JTextField detalheDuracaoPrtdTextField;
+    private JTextField comentariosTextField;
 
     public JPanel getPanel1(){
         return panel1;
     }
     //identificador do tipo de operação
-    public DetalhesJogos (String nomeJogo, String tipoJogo) {
+    public DetalhesJogos (JogoBase jogoBase) {
+        System.err.println(jogoBase);
+        nomeTextField.setText(jogoBase.getNome());
+        descricaoTextField.setText(jogoBase.getDescricaoJogo());
+        imagemTextField.setText(Arrays.toString(jogoBase.getImagem()));
+        qtdMinJogadorTextField.setText("" + jogoBase.getQtdMinJogador());
+        qtdMaxJogadorTextField.setText("" + jogoBase.getQtdMaxJogador());
+        detalheQtdJogadorTextField.setText(jogoBase.getDetalheQtdJogador());
+        idadeMinTextField.setText("" + jogoBase.getIdadeMin());
+        detalheIdadeMinTextField.setText(jogoBase.getDetalheIdadeMin());
+        duracaoMinPrtdTextField.setText("" + jogoBase.getDuracaoMinPrtd());
+        duracaoMaxPrtdTextField.setText("" + jogoBase.getDuracaoMaxPrtd());
+        detalheDuracaoPrtdTextField.setText(jogoBase.getDetalheDuracaoPrtd());
+        comentariosTextField.setText(jogoBase.getComentarios());
 
-        textField1.setText(nomeJogo);
-        textField2.setText(tipoJogo);
+
 
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textField1.getText();
+                nomeTextField.getText();
                 StringBuilder sb = new StringBuilder();
 
                 // recuperar informação do textField
-                sb.append ("Você digitou '" + textField1.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField2.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField3.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField4.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField5.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField6.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField7.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField8.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField9.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField10.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField11.getText() + "' no texto.");
-                sb.append ("Você digitou '" + textField12.getText() + "' no texto.");
+                sb.append ("Você digitou '" + nomeTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + descricaoTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + imagemTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + qtdMinJogadorTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + qtdMaxJogadorTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + detalheQtdJogadorTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + idadeMinTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + detalheIdadeMinTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + duracaoMinPrtdTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + duracaoMaxPrtdTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + detalheDuracaoPrtdTextField.getText() + "' no texto.");
+                sb.append ("Você digitou '" + comentariosTextField.getText() + "' no texto.");
 
 
                 // exibir resultado
