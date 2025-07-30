@@ -111,6 +111,7 @@ public class JogoBaseDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
         statement.executeUpdate();
+        statement.close();
     }
 
 

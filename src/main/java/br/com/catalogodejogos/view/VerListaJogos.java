@@ -124,7 +124,32 @@ public class VerListaJogos extends JPanel {
         deletarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                if(selectedRow == -1){
+                    JOptionPane.showMessageDialog(null, "Selecione um jogo para deletar.");
+                    return;
+                }
+                //Telinha de confirmação
+                int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar este jogo?", "Confirmação", JOptionPane.YES_NO_OPTION);
 
+                if(confirmar == JOptionPane.YES_OPTION){
+                    int idSelecionado = (int) table1.getValueAt(selectedRow, 0);
+
+                    try{
+                        Connection connection = DataBaseConnection.getconnection();
+                        JogoBaseDAO dao = new JogoBaseDAO(connection);
+                        dao.deletar(idSelecionado);
+
+                        //Remove da tabela
+                        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                        model.removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Jogo deletado!");
+                    } catch (SQLException ex){
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro oao tentar deletar: " + ex.getMessage());
+                    }
+                }
             }
         });
     }

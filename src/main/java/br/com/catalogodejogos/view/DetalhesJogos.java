@@ -76,27 +76,6 @@ public class DetalhesJogos {
                     JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex.getMessage());
 
                 }
-//                nomeTextField.getText();
-//                StringBuilder sb = new StringBuilder();
-//
-//                // recuperar informação do textField
-//                sb.append ("Você digitou '" + nomeTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + descricaoTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + imagemTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + qtdMinJogadorTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + qtdMaxJogadorTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalheQtdJogadorTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + idadeMinTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalheIdadeMinTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + duracaoMinPrtdTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + duracaoMaxPrtdTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + detalheDuracaoPrtdTextField.getText() + "' no texto.");
-//                sb.append ("Você digitou '" + comentariosTextField.getText() + "' no texto.");
-//
-//
-//                // exibir resultado
-//                JOptionPane.showMessageDialog(null, sb.toString(), "Informações do Jogo", JOptionPane.INFORMATION_MESSAGE);
-
             }
         });
 
