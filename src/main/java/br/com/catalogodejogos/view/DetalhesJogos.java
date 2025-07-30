@@ -63,6 +63,7 @@ public class DetalhesJogos {
                     jogoBase.setDetalheIdadeMin(detalheIdadeMinTextField.getText());
                     jogoBase.setDuracaoMinPrtd(Integer.parseInt(duracaoMinPrtdTextField.getText()));
                     jogoBase.setDuracaoMaxPrtd(Integer.parseInt(duracaoMaxPrtdTextField.getText()));
+                    jogoBase.setDetalheDuracaoPrtd(detalheDuracaoPrtdTextField.getText());
                     jogoBase.setComentarios(comentariosTextField.getText());
 
                     var conexao = br.com.catalogodejogos.infra.DataBaseConnection.getconnection();
