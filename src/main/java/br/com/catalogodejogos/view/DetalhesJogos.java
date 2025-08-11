@@ -25,7 +25,6 @@ public class DetalhesJogos {
     private JTextField duracaoMaxPrtdTextField;
     private JTextField detalheDuracaoPrtdTextField;
     private JTextField comentariosTextField;
-    private JButton deletarButton;
 
     public JPanel getPanel1(){
         return panel1;

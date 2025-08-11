@@ -45,14 +45,14 @@ public class VerListaJogos extends JPanel {
 //        }
 
         List<JogoBase> jogos;
-        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Nome", "Categoria"}, 0);
         try {
             Connection conexao = DataBaseConnection.getconnection();
             JogoBaseDAO dao = new JogoBaseDAO(conexao);
             jogos = dao.ler();
 
             for(JogoBase jogo : jogos){
-                model.addRow(new Object[]{jogo.getIdJogo(), jogo.getNome()});
+                model.addRow(new Object[]{jogo.getNome(), jogo.getDescricaoJogo()});
             }
         }catch (SQLException ex){
             ex.printStackTrace();
