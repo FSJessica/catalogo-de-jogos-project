@@ -23,10 +23,6 @@ public class VerListaJogos extends JPanel {
     private JButton deletarButton;
 
     public VerListaJogos(){
-        //criando array de string para funcionar como o cabeçalho da tabela.
-        String [] cabecalho = new String [] {"Jogo", "Categoria e descrição"};
-
-
         List<JogoBase> listaJogos = new ArrayList<>();
         try{
             Connection conexao = DataBaseConnection.getconnection();
@@ -45,19 +41,21 @@ public class VerListaJogos extends JPanel {
 //        }
 
         List<JogoBase> jogos;
-        DefaultTableModel model = new DefaultTableModel(new String[]{"Nome", "Categoria"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome", "Descrição"}, 0);
         try {
             Connection conexao = DataBaseConnection.getconnection();
             JogoBaseDAO dao = new JogoBaseDAO(conexao);
             jogos = dao.ler();
 
             for(JogoBase jogo : jogos){
-                model.addRow(new Object[]{jogo.getNome(), jogo.getDescricaoJogo()});
+                model.addRow(new Object[]{jogo.getIdJogo(), jogo.getNome(), jogo.getDescricaoJogo()});
             }
         }catch (SQLException ex){
             ex.printStackTrace();
         }
         table1.setModel(model);
+        table1.removeColumn(table1.getColumnModel().getColumn(0));
+
 
 //        //Modelo da tabela(impede edição de células)
 //        DefaultTableModel modelBd = new DefaultTableModel(dados, cabecalho){
@@ -79,7 +77,7 @@ public class VerListaJogos extends JPanel {
                     return;
                 }
 
-                int idSelecionado = (int) table1.getValueAt(selectedRow, 0);
+                int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
 
                 try{
                     Connection conexao = DataBaseConnection.getconnection();
