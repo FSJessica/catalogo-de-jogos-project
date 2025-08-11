@@ -8,7 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
-public class DetalhesJogos {
+public class DetalhesJogos extends JPanel{
 
     private JPanel panel1;
     private JButton salvarButton;
@@ -25,6 +25,7 @@ public class DetalhesJogos {
     private JTextField duracaoMaxPrtdTextField;
     private JTextField detalheDuracaoPrtdTextField;
     private JTextField comentariosTextField;
+    private JButton GerenciarExpansaoButton;
 
     public JPanel getPanel1(){
         return panel1;
@@ -85,6 +86,14 @@ public class DetalhesJogos {
             public void actionPerformed(ActionEvent e) {
                 VerListaJogos listaPanel = new VerListaJogos();
                 Main.updateFrameWithNewPanel(listaPanel);
+            }
+        });
+        GerenciarExpansaoButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                GerenciarExpansao gerenciarExpansao = new GerenciarExpansao(jogoBase);
+                Main.updateFrameWithNewPanel(gerenciarExpansao);
+
             }
         });
     }
