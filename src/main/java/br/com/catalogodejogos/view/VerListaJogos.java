@@ -15,13 +15,12 @@ import br.com.catalogodejogos.dao.JogoBaseDAO;
 import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.JogoBase;
 
-import static br.com.catalogodejogos.view.MainPanel.updateFrameWithNewPanel;
-
 public class VerListaJogos extends JPanel {
     private JTable table1;
     private JPanel panel1;
     private JButton maisDetalhesButton;
     private JButton voltarButton;
+    private JButton deletarButton;
 
     public VerListaJogos(){
         //criando array de string para funcionar como o cabeçalho da tabela.
@@ -46,14 +45,14 @@ public class VerListaJogos extends JPanel {
 //        }
 
         List<JogoBase> jogos;
-        DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome"}, 0);
+        DefaultTableModel model = new DefaultTableModel(new String[]{"Nome", "Categoria"}, 0);
         try {
             Connection conexao = DataBaseConnection.getconnection();
             JogoBaseDAO dao = new JogoBaseDAO(conexao);
             jogos = dao.ler();
 
             for(JogoBase jogo : jogos){
-                model.addRow(new Object[]{jogo.getIdJogo(), jogo.getNome()});
+                model.addRow(new Object[]{jogo.getNome(), jogo.getDescricaoJogo()});
             }
         }catch (SQLException ex){
             ex.printStackTrace();
@@ -121,6 +120,38 @@ public class VerListaJogos extends JPanel {
         // chamo o método da classe main para atualizar o frame com o meu novo painel.
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(panel1);
+
+        deletarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                if(selectedRow == -1){
+                    JOptionPane.showMessageDialog(null, "Selecione um jogo para deletar.");
+                    return;
+                }
+                //Telinha de confirmação
+                int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar este jogo?", "Confirmação", JOptionPane.YES_NO_OPTION);
+
+                if(confirmar == JOptionPane.YES_OPTION){
+                    int idSelecionado = (int) table1.getValueAt(selectedRow, 0);
+
+                    try{
+                        Connection connection = DataBaseConnection.getconnection();
+                        JogoBaseDAO dao = new JogoBaseDAO(connection);
+                        dao.deletar(idSelecionado);
+
+                        //Remove da tabela
+                        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                        model.removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Jogo deletado!");
+                    } catch (SQLException ex){
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro oao tentar deletar: " + ex.getMessage());
+                    }
+                }
+            }
+        });
     }
 
 }

@@ -50,27 +50,32 @@ public class DetalhesJogos {
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                nomeTextField.getText();
-                StringBuilder sb = new StringBuilder();
+                try{
+                    //Atualizar os valores no objeto jogoBase
+                    jogoBase.setNome(nomeTextField.getText());
+                    jogoBase.setDescricaoJogo(descricaoTextField.getText());
+                    jogoBase.setImagem(imagemTextField.getText().getBytes());
+                    jogoBase.setQtdMinJogador(Integer.parseInt(qtdMinJogadorTextField.getText()));
+                    jogoBase.setQtdMaxJogador(Integer.parseInt(qtdMaxJogadorTextField.getText()));
+                    jogoBase.setDetalheQtdJogador(detalheQtdJogadorTextField.getText());
+                    jogoBase.setIdadeMin(Integer.parseInt(idadeMinTextField.getText()));
+                    jogoBase.setDetalheIdadeMin(detalheIdadeMinTextField.getText());
+                    jogoBase.setDuracaoMinPrtd(Integer.parseInt(duracaoMinPrtdTextField.getText()));
+                    jogoBase.setDuracaoMaxPrtd(Integer.parseInt(duracaoMaxPrtdTextField.getText()));
+                    jogoBase.setDetalheDuracaoPrtd(detalheDuracaoPrtdTextField.getText());
+                    jogoBase.setComentarios(comentariosTextField.getText());
 
-                // recuperar informação do textField
-                sb.append ("Você digitou '" + nomeTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + descricaoTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + imagemTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + qtdMinJogadorTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + qtdMaxJogadorTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + detalheQtdJogadorTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + idadeMinTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + detalheIdadeMinTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + duracaoMinPrtdTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + duracaoMaxPrtdTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + detalheDuracaoPrtdTextField.getText() + "' no texto.");
-                sb.append ("Você digitou '" + comentariosTextField.getText() + "' no texto.");
+                    var conexao = br.com.catalogodejogos.infra.DataBaseConnection.getconnection();
+                    var dao = new br.com.catalogodejogos.dao.JogoBaseDAO(conexao);
+                    dao.atualizar(jogoBase);
 
+                    JOptionPane.showMessageDialog(null, "Jogo atualizado!");
 
-                // exibir resultado
-                JOptionPane.showMessageDialog(null, sb.toString(), "Informações do Jogo", JOptionPane.INFORMATION_MESSAGE);
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex.getMessage());
 
+                }
             }
         });
 
