@@ -16,6 +16,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import static br.com.catalogodejogos.util.Constants.jogoBase;
+
 public class GerenciarExpansao extends JPanel{
     private JPanel panel1;
     private JTable table1;
@@ -24,7 +26,7 @@ public class GerenciarExpansao extends JPanel{
     private JButton verDetalhesDaExpansaoButton;
     private JButton deletarExpansaoButton;
 
-    public GerenciarExpansao(JogoBase jogoBase) {
+    public GerenciarExpansao() {
         // Adiciona o panel1 (criado pelo GUI Designer) a este JPanel
         this.setLayout(new java.awt.BorderLayout());
         this.add(panel1, java.awt.BorderLayout.CENTER);
@@ -90,7 +92,7 @@ public class GerenciarExpansao extends JPanel{
         voltarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                DetalhesJogos detalhesJogos = new DetalhesJogos(jogoBase);
+                DetalhesJogos detalhesJogos = new DetalhesJogos();
                 Main.updateFrameWithNewPanel(detalhesJogos.getPanel1());
             }
         });

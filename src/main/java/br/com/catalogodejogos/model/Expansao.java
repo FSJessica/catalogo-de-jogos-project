@@ -6,13 +6,13 @@ public class Expansao {
     private String nomeExps;
     private String descricaoExps;
     private byte[] imagemExps;
-    private short qtdMinJogadorExps;
-    private short qtdMaxJogadorExps;
+    private int qtdMinJogadorExps;
+    private int qtdMaxJogadorExps;
     private String detalheQtdJogadorExps;
-    private short idadeMinExps;
+    private int idadeMinExps;
     private String detalheIdadeMinExps;
-    private short duracaoMinPrtdExps;
-    private short duracaoMaxPrtdExps;
+    private int duracaoMinPrtdExps;
+    private int duracaoMaxPrtdExps;
     private String detalheDuracaoPrtdExps;
 
     public int getIdExpansao() {
@@ -55,19 +55,19 @@ public class Expansao {
         this.imagemExps = imagemExps;
     }
 
-    public short getQtdMinJogadorExps() {
+    public int getQtdMinJogadorExps() {
         return qtdMinJogadorExps;
     }
 
-    public void setQtdMinJogadorExps(short qtdMinJogadorExps) {
+    public void setQtdMinJogadorExps(int qtdMinJogadorExps) {
         this.qtdMinJogadorExps = qtdMinJogadorExps;
     }
 
-    public short getQtdMaxJogadorExps() {
+    public int getQtdMaxJogadorExps() {
         return qtdMaxJogadorExps;
     }
 
-    public void setQtdMaxJogadorExps(short qtdMaxJogadorExps) {
+    public void setQtdMaxJogadorExps(int qtdMaxJogadorExps) {
         this.qtdMaxJogadorExps = qtdMaxJogadorExps;
     }
 
@@ -79,11 +79,11 @@ public class Expansao {
         this.detalheQtdJogadorExps = detalheQtdJogadorExps;
     }
 
-    public short getIdadeMinExps() {
+    public int getIdadeMinExps() {
         return idadeMinExps;
     }
 
-    public void setIdadeMinExps(short idadeMinExps) {
+    public void setIdadeMinExps(int idadeMinExps) {
         this.idadeMinExps = idadeMinExps;
     }
 
@@ -95,19 +95,19 @@ public class Expansao {
         this.detalheIdadeMinExps = detalheIdadeMinExps;
     }
 
-    public short getDuracaoMinPrtdExps() {
+    public int getDuracaoMinPrtdExps() {
         return duracaoMinPrtdExps;
     }
 
-    public void setDuracaoMinPrtdExps(short duracaoMinPrtdExps) {
+    public void setDuracaoMinPrtdExps(int duracaoMinPrtdExps) {
         this.duracaoMinPrtdExps = duracaoMinPrtdExps;
     }
 
-    public short getDuracaoMaxPrtdExps() {
+    public int getDuracaoMaxPrtdExps() {
         return duracaoMaxPrtdExps;
     }
 
-    public void setDuracaoMaxPrtdExps(short duracaoMaxPrtdExps) {
+    public void setDuracaoMaxPrtdExps(int duracaoMaxPrtdExps) {
         this.duracaoMaxPrtdExps = duracaoMaxPrtdExps;
     }
 
