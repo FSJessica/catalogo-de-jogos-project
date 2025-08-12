@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpansaoDAO {
+public class    ExpansaoDAO {
     private Connection connection;
 
     public ExpansaoDAO(Connection connection){
@@ -53,6 +53,22 @@ public class ExpansaoDAO {
             listExpansao.add(exp);
         }
         return listExpansao;
+    }
+
+    public List<Expansao> lerPorJogo(int idJogo) throws SQLException {
+        List<Expansao> lista = new ArrayList<>();
+        String sql = "SELECT * FROM tb_expansao WHERE id_jogo = ?";
+        PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setInt(1, idJogo);
+        ResultSet rs = stmt.executeQuery();
+        while (rs.next()) {
+            Expansao expansao = new Expansao();
+            expansao.setIdExpansao(rs.getInt("id_expansao"));
+            expansao.setNomeExps(rs.getString("nome_exps"));
+            expansao.setDescricaoExps(rs.getString("descricao_exps"));
+            lista.add(expansao);
+        }
+        return lista;
     }
 
     public void atualizar (Expansao expansao) throws SQLException{
