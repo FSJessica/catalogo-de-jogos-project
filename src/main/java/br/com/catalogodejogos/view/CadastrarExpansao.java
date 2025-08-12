@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CadastrarExpansao {
+public class CadastrarExpansao extends JPanel{
     private JPanel panel1;
     private JTextField nomeExpansaoTextField;
     private JTextField descricaoExpansaoTextField;
@@ -20,7 +20,13 @@ public class CadastrarExpansao {
     private JButton salvarButton;
     private JButton voltarButton;
 
+    public JPanel getPanel1() {
+        return panel1;
+    }
+
     public CadastrarExpansao() {
+
+
         buscarImagemExpsButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -30,6 +36,7 @@ public class CadastrarExpansao {
         salvarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
 
             }
         });

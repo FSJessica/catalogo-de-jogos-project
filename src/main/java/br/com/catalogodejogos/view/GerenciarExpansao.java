@@ -31,6 +31,7 @@ public class GerenciarExpansao extends JPanel{
         inserirExpansaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                Main.updateFrameWithNewPanel(new CadastrarExpansao().getPanel1());
 
             }
         });
