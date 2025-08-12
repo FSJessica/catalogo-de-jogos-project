@@ -8,6 +8,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import static br.com.catalogodejogos.util.Constants.jogoBase;
+
 public class DetalhesJogos extends JPanel{
 
     private JPanel panel1;
@@ -31,7 +33,7 @@ public class DetalhesJogos extends JPanel{
         return panel1;
     }
     //identificador do tipo de operação
-    public DetalhesJogos (JogoBase jogoBase) {
+    public DetalhesJogos () {
         System.err.println(jogoBase);
         nomeTextField.setText(jogoBase.getNome());
         descricaoTextField.setText(jogoBase.getDescricaoJogo());
@@ -91,8 +93,8 @@ public class DetalhesJogos extends JPanel{
         GerenciarExpansaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                GerenciarExpansao gerenciarExpansao = new GerenciarExpansao(jogoBase);
-                Main.updateFrameWithNewPanel(new GerenciarExpansao(jogoBase));
+                GerenciarExpansao gerenciarExpansao = new GerenciarExpansao();
+                Main.updateFrameWithNewPanel(gerenciarExpansao);
 
             }
         });

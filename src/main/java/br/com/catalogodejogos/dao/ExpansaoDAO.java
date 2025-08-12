@@ -18,13 +18,13 @@ public class    ExpansaoDAO {
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, expansao.getNomeExps());
         statement.setString(2, expansao.getDescricaoExps());
-        statement.setShort(3, expansao.getQtdMinJogadorExps());
-        statement.setShort(4, expansao.getQtdMaxJogadorExps());
+        statement.setInt(3, expansao.getQtdMinJogadorExps());
+        statement.setInt(4, expansao.getQtdMaxJogadorExps());
         statement.setString(5, expansao.getDetalheQtdJogadorExps());
-        statement.setShort(6, expansao.getIdadeMinExps());
+        statement.setInt(6, expansao.getIdadeMinExps());
         statement.setString(7, expansao.getDetalheIdadeMinExps());
-        statement.setShort(8, expansao.getDuracaoMinPrtdExps());
-        statement.setShort(9, expansao.getDuracaoMaxPrtdExps());
+        statement.setInt(8, expansao.getDuracaoMinPrtdExps());
+        statement.setInt(9, expansao.getDuracaoMaxPrtdExps());
         statement.setString(10, expansao.getDetalheDuracaoPrtdExps());
         statement.setInt(11,expansao.getIdJogo());
         statement.executeUpdate();
@@ -42,13 +42,13 @@ public class    ExpansaoDAO {
             exp.setIdExpansao(resultSet.getInt("id_expansao"));
             exp.setNomeExps(resultSet.getString("nome_exps"));
             exp.setDescricaoExps(resultSet.getString("descricao_exps"));
-            exp.setQtdMinJogadorExps(resultSet.getShort("qtd_min_jogador_exps"));
-            exp.setQtdMaxJogadorExps(resultSet.getShort("qtd_max_jogadpr_exps"));
+            exp.setQtdMinJogadorExps(resultSet.getInt("qtd_min_jogador_exps"));
+            exp.setQtdMaxJogadorExps(resultSet.getInt("qtd_max_jogadpr_exps"));
             exp.setDetalheQtdJogadorExps(resultSet.getString("detalhe_qtd_jogador_exps"));
-            exp.setIdadeMinExps(resultSet.getShort("idade_min_exps"));
+            exp.setIdadeMinExps(resultSet.getInt("idade_min_exps"));
             exp.setDetalheIdadeMinExps(resultSet.getString("detalhe_idade_min_exps"));
-            exp.setDuracaoMinPrtdExps(resultSet.getShort("duracao_min_prtd_exps"));
-            exp.setDuracaoMaxPrtdExps(resultSet.getShort("duracao_max_prtd_exps"));
+            exp.setDuracaoMinPrtdExps(resultSet.getInt("duracao_min_prtd_exps"));
+            exp.setDuracaoMaxPrtdExps(resultSet.getInt("duracao_max_prtd_exps"));
             exp.setDetalheDuracaoPrtdExps(resultSet.getString("detalhe_duracao_prtd_exps"));
             listExpansao.add(exp);
         }

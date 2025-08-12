@@ -14,6 +14,8 @@ import java.util.List;
 import br.com.catalogodejogos.dao.JogoBaseDAO;
 import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.JogoBase;
+import static br.com.catalogodejogos.util.Constants.jogoBase;
+
 
 public class VerListaJogos extends JPanel {
     private JTable table1;
@@ -82,10 +84,10 @@ public class VerListaJogos extends JPanel {
                 try{
                     Connection conexao = DataBaseConnection.getconnection();
                     JogoBaseDAO dao = new JogoBaseDAO(conexao);
-                    JogoBase jogo = dao.buscarPorId(idSelecionado);
+                    jogoBase = dao.buscarPorId(idSelecionado);
 
-                    if (jogo != null) {
-                        Main.updateFrameWithNewPanel(new DetalhesJogos(jogo).getPanel1());
+                    if (jogoBase != null) {
+                        Main.updateFrameWithNewPanel(new DetalhesJogos().getPanel1());
                     } else {
                         JOptionPane.showMessageDialog(null, "Jogo não encontrado no banco de dados.");
                     }
