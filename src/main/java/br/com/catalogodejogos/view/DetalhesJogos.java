@@ -92,7 +92,7 @@ public class DetalhesJogos extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 GerenciarExpansao gerenciarExpansao = new GerenciarExpansao(jogoBase);
-                Main.updateFrameWithNewPanel(gerenciarExpansao);
+                Main.updateFrameWithNewPanel(new GerenciarExpansao(jogoBase));
 
             }
         });
