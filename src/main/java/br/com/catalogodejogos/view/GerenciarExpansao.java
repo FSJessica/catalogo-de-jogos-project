@@ -31,24 +31,6 @@ public class GerenciarExpansao extends JPanel{
         this.setLayout(new java.awt.BorderLayout());
         this.add(panel1, java.awt.BorderLayout.CENTER);
 
-        List<Expansao> listaExpansaos = new ArrayList<>();
-        try{
-            Connection conexao = DataBaseConnection.getconnection();
-            ExpansaoDAO dao = new ExpansaoDAO(conexao);
-            listaExpansaos = dao.ler();
-        }catch (SQLException ex){
-            JOptionPane.showMessageDialog(null,"Erro ao buscar expansão no banco: " + ex.getMessage());
-            ex.printStackTrace();
-        }
-
-//        // Configura modelo inicial da tabela
-//        String[] colunas = {"ID", "Nome da Expansão", "Descrição"};
-//        Object[][] dados = {
-//                {1, "Expansão 1", "Expansão contém novas cartas"},
-//                {2, "Expansão 2", "Expansão contém novos personagens e novas cartas"}
-//        };
-//        table1.setModel(new javax.swing.table.DefaultTableModel(dados, colunas));
-
         List<Expansao> expansao;
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome", "Descrição"}, 0);
         try {
@@ -86,7 +68,32 @@ public class GerenciarExpansao extends JPanel{
         deletarExpansaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
+                if(selectedRow == -1){
+                    JOptionPane.showMessageDialog(null, "Selecione uma expansão para deletar.");
+                    return;
+                }
+                //Telinha de confirmação
+                int confirmar = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja deletar essa expansão?", "Confirmação", JOptionPane.YES_NO_OPTION);
 
+                if(confirmar == JOptionPane.YES_OPTION){
+                    int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
+
+                    try{
+                        Connection connection = DataBaseConnection.getconnection();
+                        ExpansaoDAO dao = new ExpansaoDAO(connection);
+                        dao.deletar(idSelecionado);
+
+                        //Remove da tabela
+                        DefaultTableModel model = (DefaultTableModel) table1.getModel();
+                        model.removeRow(selectedRow);
+
+                        JOptionPane.showMessageDialog(null, "Jogo deletado!");
+                    } catch (SQLException ex){
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro ao tentar deletar: " + ex.getMessage());
+                    }
+                }
             }
         });
         voltarButton.addActionListener(new ActionListener() {
