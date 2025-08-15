@@ -102,79 +102,79 @@ public class TestarCrud {
 //        statement.executeUpdate();
 //        statement.close();
 //    }
-
-    public static void testaExpansao(Connection conn) throws SQLException {
-        ExpansaoDAO dao = new ExpansaoDAO(conn);
-
-        // Inserir
-        Expansao novo = new Expansao();
-        novo.setIdJogo(11);
-        novo.setDescricaoExps("Um jogo dificil");
-        novo.setNomeExps("efnkcgy");
-        novo.setDetalheDuracaoPrtdExps("sdfgthjuk");
-        novo.setDetalheIdadeMinExps(",lmkuhytf6r5d");
-        novo.setDetalheQtdJogadorExps("çoiuytfgvbhuytrdxfchuytrdxchu");
-        dao.criar(novo);
-        System.out.println("Expansao inserida!");
-
-        // Listar
-        List<Expansao> listExpansao = dao.ler();
-        System.out.println("Expansao do jogo");
-        for (Expansao jb : listExpansao) {
-            System.out.println(jb.getIdExpansao() + " - " + jb.getDescricaoExps() );
-        }
-
-        //Atualizar
-
-        if (!listExpansao.isEmpty()) {
-            Expansao expansaoAtualizar = listExpansao.get(0);
-            expansaoAtualizar.setDescricaoExps("Descrição de Expansao atualizada");
-            dao.atualizar(expansaoAtualizar);
-            System.out.println("Expansao atualizada");
-        }
-
-        //Excluir
-        if (!listExpansao.isEmpty()) {
-            int idParaDeletar = listExpansao.get(listExpansao.size() - 1).getIdExpansao();
-            dao.deletar(idParaDeletar);
-            System.out.println("Expansao Deletada");
-        }
-    }
-
-    public static void testaJogo(Connection conn) throws SQLException {
-        JogoBaseDAO dao = new JogoBaseDAO(conn);
-
-        // Inserir
-        JogoBase novo = new JogoBase();
-        novo.setNome("sjdkan");
-        novo.setQtdMinJogador((short) 8);
-        novo.setQtdMaxJogador((short) 8);
-        novo.setDetalheIdadeMin("sdfds");
-        novo.setIdadeMin((short) 8);
-        novo.setDetalheIdadeMin("jsjkd");
-        novo.setDuracaoMinPrtd((short) 1);
-        novo.setDetalheDuracaoPrtd("jskd");
-        novo.setDetalheQtdJogador("hhhhhhhhhhh");
-
-
-        novo.setDescricaoJogo("Um jogo dificil");
-        dao.criar(novo);
-        System.out.println("JogoBase inseride!");
-
-        // Listar
-        List<JogoBase> listJogoBase = dao.ler();
-        System.out.println(" jogo");
-        for (JogoBase jb : listJogoBase) {
-            System.out.println(jb.getIdJogo() + " - " + jb.getDescricaoJogo() );
-        }
-
-        //Atualizar
-        if (!listJogoBase.isEmpty()) {
-            JogoBase jogoBaseAtualizar = listJogoBase.get(0);
-            jogoBaseAtualizar.setDescricaoJogo("Descrição de jogo atualizade");
-            dao.atualizar(jogoBaseAtualizar);
-            System.out.println("Jogo  atualizade");
-        }
+//
+//    public static void testaExpansao(Connection conn) throws SQLException {
+//        ExpansaoDAO dao = new ExpansaoDAO(conn);
+//
+//        // Inserir
+//        Expansao novo = new Expansao();
+//        novo.setIdJogo(11);
+//        novo.setDescricaoExps("Um jogo dificil");
+//        novo.setNomeExps("efnkcgy");
+//        novo.setDetalheDuracaoPrtdExps("sdfgthjuk");
+//        novo.setDetalheIdadeMinExps(",lmkuhytf6r5d");
+//        novo.setDetalheQtdJogadorExps("çoiuytfgvbhuytrdxfchuytrdxchu");
+//        dao.criar(novo);
+//        System.out.println("Expansao inserida!");
+//
+//        // Listar
+//        List<Expansao> listExpansao = dao.ler();
+//        System.out.println("Expansao do jogo");
+//        for (Expansao jb : listExpansao) {
+//            System.out.println(jb.getIdExpansao() + " - " + jb.getDescricaoExps() );
+//        }
+//
+//        //Atualizar
+//
+//        if (!listExpansao.isEmpty()) {
+//            Expansao expansaoAtualizar = listExpansao.get(0);
+//            expansaoAtualizar.setDescricaoExps("Descrição de Expansao atualizada");
+//            dao.atualizar(expansaoAtualizar);
+//            System.out.println("Expansao atualizada");
+//        }
+//
+//        //Excluir
+//        if (!listExpansao.isEmpty()) {
+//            int idParaDeletar = listExpansao.get(listExpansao.size() - 1).getIdExpansao();
+//            dao.deletar(idParaDeletar);
+//            System.out.println("Expansao Deletada");
+//        }
+//    }
+//
+//    public static void testaJogo(Connection conn) throws SQLException {
+//        JogoBaseDAO dao = new JogoBaseDAO(conn);
+//
+//        // Inserir
+//        JogoBase novo = new JogoBase();
+//        novo.setNome("sjdkan");
+//        novo.setQtdMinJogador((short) 8);
+//        novo.setQtdMaxJogador((short) 8);
+//        novo.setDetalheIdadeMin("sdfds");
+//        novo.setIdadeMin((short) 8);
+//        novo.setDetalheIdadeMin("jsjkd");
+//        novo.setDuracaoMinPrtd((short) 1);
+//        novo.setDetalheDuracaoPrtd("jskd");
+//        novo.setDetalheQtdJogador("hhhhhhhhhhh");
+//
+//
+//        novo.setDescricaoJogo("Um jogo dificil");
+//        dao.criar(novo);
+//        System.out.println("JogoBase inseride!");
+//
+//        // Listar
+//        List<JogoBase> listJogoBase = dao.ler();
+//        System.out.println(" jogo");
+//        for (JogoBase jb : listJogoBase) {
+//            System.out.println(jb.getIdJogo() + " - " + jb.getDescricaoJogo() );
+//        }
+//
+//        //Atualizar
+//        if (!listJogoBase.isEmpty()) {
+//            JogoBase jogoBaseAtualizar = listJogoBase.get(0);
+//            jogoBaseAtualizar.setDescricaoJogo("Descrição de jogo atualizade");
+//            dao.atualizar(jogoBaseAtualizar);
+//            System.out.println("Jogo  atualizade");
+//        }
 
 //        //Excluir
 //        if (!listExpansao.isEmpty()) {
@@ -183,6 +183,6 @@ public class TestarCrud {
 //            System.out.println("Expansao Deletada");
 //        }
     }
-}
+//}
 
 

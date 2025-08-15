@@ -84,6 +84,7 @@ public class VerListaJogos extends JPanel {
                 try{
                     Connection conexao = DataBaseConnection.getconnection();
                     JogoBaseDAO dao = new JogoBaseDAO(conexao);
+                    // setando variável global jogoBase pra ser o jogo que eu busquei pelo idSelecionado abaixo
                     jogoBase = dao.buscarPorId(idSelecionado);
 
                     if (jogoBase != null) {

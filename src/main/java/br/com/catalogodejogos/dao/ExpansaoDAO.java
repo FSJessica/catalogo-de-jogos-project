@@ -31,30 +31,6 @@ public class    ExpansaoDAO {
         statement.close();
     }
 
-    public List<Expansao> ler() throws SQLException{
-        List<Expansao> listExpansao = new ArrayList<>();
-        String sql = "SELECT * FROM tb_expansao";
-        PreparedStatement statement = connection.prepareStatement(sql);
-        ResultSet resultSet = statement.executeQuery();
-
-        while (resultSet.next()){
-            Expansao exp = new Expansao();
-            exp.setIdExpansao(resultSet.getInt("id_expansao"));
-            exp.setNomeExps(resultSet.getString("nome_exps"));
-            exp.setDescricaoExps(resultSet.getString("descricao_exps"));
-            exp.setQtdMinJogadorExps(resultSet.getInt("qtd_min_jogador_exps"));
-            exp.setQtdMaxJogadorExps(resultSet.getInt("qtd_max_jogadpr_exps"));
-            exp.setDetalheQtdJogadorExps(resultSet.getString("detalhe_qtd_jogador_exps"));
-            exp.setIdadeMinExps(resultSet.getInt("idade_min_exps"));
-            exp.setDetalheIdadeMinExps(resultSet.getString("detalhe_idade_min_exps"));
-            exp.setDuracaoMinPrtdExps(resultSet.getInt("duracao_min_prtd_exps"));
-            exp.setDuracaoMaxPrtdExps(resultSet.getInt("duracao_max_prtd_exps"));
-            exp.setDetalheDuracaoPrtdExps(resultSet.getString("detalhe_duracao_prtd_exps"));
-            listExpansao.add(exp);
-        }
-        return listExpansao;
-    }
-
     public List<Expansao> lerPorJogo(int idJogo) throws SQLException {
         List<Expansao> lista = new ArrayList<>();
         String sql = "SELECT * FROM tb_expansao WHERE id_jogo = ?";
