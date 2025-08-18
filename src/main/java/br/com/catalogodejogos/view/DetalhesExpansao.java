@@ -1,12 +1,14 @@
 package br.com.catalogodejogos.view;
 
 import br.com.catalogodejogos.app.Main;
+import br.com.catalogodejogos.dao.ExpansaoDAO;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import static br.com.catalogodejogos.infra.DataBaseConnection.getconnection;
 import static br.com.catalogodejogos.util.Constants.jogoBase;
 import static br.com.catalogodejogos.util.Constants.expansao;
 
@@ -49,9 +51,6 @@ public class DetalhesExpansao extends JPanel{
 
 
 
-
-
-
         buscarImagemButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -61,7 +60,31 @@ public class DetalhesExpansao extends JPanel{
         salvarEdiçõesButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    //Atualizar os valores no objeto jogoBase
+                    expansao.setNomeExps(nomeExpsTextField.getText());
+                    expansao.setDescricaoExps(descricaoExpsTextField.getText());
+                    expansao.setImagemExps(buscarImagemButton.getText().getBytes());
+                    expansao.setQtdMinJogadorExps((int)qtdMinJogadorExpsSpinner.getValue());
+                    expansao.setQtdMaxJogadorExps((int) qtdMaxJogadorExpsSpinner.getValue());
+                    expansao.setDetalheQtdJogadorExps(detalheQtdJogadorExpsTextField.getText());
+                    expansao.setIdadeMinExps((int)idadeMinJogadorExpsSpinner.getValue());
+                    expansao.setDetalheIdadeMinExps(detalheIdadeMinExpsTextField.getText());
+                    expansao.setDuracaoMinPrtdExps((int)duracaoMinPrtdExpsSpinner.getValue());
+                    expansao.setDuracaoMaxPrtdExps((int)duracaoMaxPrtdExpsSpinner.getValue());
+                    expansao.setDetalheDuracaoPrtdExps(detalhesDuracaoPrtdExpsTextField.getText());
 
+                    var conexao = getconnection();
+                    var dao = new ExpansaoDAO(conexao);
+                    dao.atualizar(expansao);
+
+                    JOptionPane.showMessageDialog(null, "Jogo atualizado!");
+
+                }catch (Exception ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao atualizar: " + ex.getMessage());
+
+                }
             }
         });
         voltarButton.addActionListener(new ActionListener() {

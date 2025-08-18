@@ -1,6 +1,7 @@
 package br.com.catalogodejogos.view;
 
 import br.com.catalogodejogos.app.Main;
+import br.com.catalogodejogos.dao.JogoBaseDAO;
 import br.com.catalogodejogos.model.JogoBase;
 
 import javax.swing.*;
@@ -8,6 +9,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Arrays;
 
+import static br.com.catalogodejogos.infra.DataBaseConnection.getconnection;
 import static br.com.catalogodejogos.util.Constants.jogoBase;
 
 public class DetalhesJogos extends JPanel{
@@ -68,8 +70,8 @@ public class DetalhesJogos extends JPanel{
                     jogoBase.setDetalheDuracaoPrtd(detalheDuracaoPrtdTextField.getText());
                     jogoBase.setComentarios(comentariosTextField.getText());
 
-                    var conexao = br.com.catalogodejogos.infra.DataBaseConnection.getconnection();
-                    var dao = new br.com.catalogodejogos.dao.JogoBaseDAO(conexao);
+                    var conexao = getconnection();
+                    var dao = new JogoBaseDAO(conexao);
                     dao.atualizar(jogoBase);
 
                     JOptionPane.showMessageDialog(null, "Jogo atualizado!");

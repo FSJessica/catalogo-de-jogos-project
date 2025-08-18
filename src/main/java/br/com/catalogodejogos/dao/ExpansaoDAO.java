@@ -74,11 +74,20 @@ public class    ExpansaoDAO {
     }
 
     public void atualizar (Expansao expansao) throws SQLException{
-        String sql = "UPDATE tb_expansao SET nome_exps = ?, detalhe_qtd_jogador_exps = ? WHERE id_expansao = ?";
+        String sql = "UPDATE tb_expansao SET nome_exps = ?,descricao_exps = ?, imagem_exps=?, qtd_min_jogador_exps =?, qtd_max_jogador_exps = ?, detalhe_qtd_jogador_exps = ?, idade_min_exps = ?, detalhe_idade_min_exps = ?, duracao_min_prtd_exps = ?, duracao_max_prtd_exps = ?, detalhe_duracao_prtd_exps = ? WHERE id_expansao = ?";
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setString(1, expansao.getNomeExps());
-        statement.setString(2, expansao.getDetalheQtdJogadorExps());
-        statement.setInt(3, expansao.getIdExpansao());
+        statement.setString(2, expansao.getDescricaoExps());
+        statement.setBytes(3, expansao.getImagemExps());
+        statement.setInt(4, expansao.getQtdMinJogadorExps());
+        statement.setInt(5, expansao.getQtdMaxJogadorExps());
+        statement.setString(6, expansao.getDetalheQtdJogadorExps());
+        statement.setInt(7, expansao.getIdadeMinExps());
+        statement.setString(8, expansao.getDetalheIdadeMinExps());
+        statement.setInt(9, expansao.getDuracaoMinPrtdExps());
+        statement.setInt(10, expansao.getDuracaoMaxPrtdExps());
+        statement.setString(11, expansao.getDetalheDuracaoPrtdExps());
+        statement.setInt(12, expansao.getIdExpansao());
         statement.executeUpdate();
     }
 
