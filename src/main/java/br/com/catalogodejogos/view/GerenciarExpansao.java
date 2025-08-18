@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static br.com.catalogodejogos.util.Constants.jogoBase;
+import static br.com.catalogodejogos.util.Constants.expansao;
+
 
 public class GerenciarExpansao extends JPanel{
     private JPanel panel1;
@@ -25,20 +27,26 @@ public class GerenciarExpansao extends JPanel{
     private JButton inserirExpansaoButton;
     private JButton verDetalhesDaExpansaoButton;
     private JButton deletarExpansaoButton;
+    private List<Expansao> listExpansao;
+
+
+    public JPanel getPanel1(){
+        return panel1;
+    }
 
     public GerenciarExpansao() {
         // Adiciona o panel1 (criado pelo GUI Designer) a este JPanel
         this.setLayout(new java.awt.BorderLayout());
         this.add(panel1, java.awt.BorderLayout.CENTER);
 
-        List<Expansao> expansao;
+
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome", "Descrição"}, 0);
         try {
             Connection conexao = DataBaseConnection.getconnection();
             ExpansaoDAO dao = new ExpansaoDAO(conexao);
-            expansao = dao.lerPorJogo(jogoBase.getIdJogo());
+            listExpansao = dao.lerPorJogo(jogoBase.getIdJogo());
 
-            for(Expansao expansao1 : expansao){
+            for(Expansao expansao1 : listExpansao){
                 model.addRow(new Object[]{
                         expansao1.getIdExpansao(),
                         expansao1.getNomeExps(),
@@ -62,7 +70,30 @@ public class GerenciarExpansao extends JPanel{
         verDetalhesDaExpansaoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                int selectedRow = table1.getSelectedRow();
 
+                if (selectedRow == -1){
+                    JOptionPane.showMessageDialog(null, "Selecione uma expansão na tabela primeiro!");
+                    return;
+                }
+
+                int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
+
+                try{
+                    Connection conexao = DataBaseConnection.getconnection();
+                    ExpansaoDAO dao = new ExpansaoDAO(conexao);
+                    // setando variável global jogoBase pra ser o jogo que eu busquei pelo idSelecionado abaixo
+                    expansao = dao.buscarExpansao(idSelecionado);
+
+                    if (expansao != null) {
+                        Main.updateFrameWithNewPanel(new DetalhesExpansao().getPanel1());
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Expansão não encontrada no banco de dados.");
+                    }
+                }catch (SQLException ex){
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "Erro ao buscar expansão.");
+                }
             }
         });
         deletarExpansaoButton.addActionListener(new ActionListener() {
