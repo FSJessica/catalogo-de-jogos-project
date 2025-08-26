@@ -27,8 +27,7 @@ public class VerListaJogos extends JPanel {
     public VerListaJogos(){
         List<JogoBase> listaJogos = new ArrayList<>();
         try{
-            Connection conexao = DataBaseConnection.getconnection();
-            JogoBaseDAO dao = new JogoBaseDAO(conexao);
+            JogoBaseDAO dao = new JogoBaseDAO();
             listaJogos = dao.ler();
         }catch (SQLException ex){
             JOptionPane.showMessageDialog(null,"Erro ao buscar jogos no banco: " + ex.getMessage());
@@ -45,8 +44,7 @@ public class VerListaJogos extends JPanel {
         List<JogoBase> jogos;
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome", "Descrição"}, 0);
         try {
-            Connection conexao = DataBaseConnection.getconnection();
-            JogoBaseDAO dao = new JogoBaseDAO(conexao);
+            JogoBaseDAO dao = new JogoBaseDAO();
             jogos = dao.ler();
 
             for(JogoBase jogo : jogos){
@@ -82,8 +80,7 @@ public class VerListaJogos extends JPanel {
                 int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
 
                 try{
-                    Connection conexao = DataBaseConnection.getconnection();
-                    JogoBaseDAO dao = new JogoBaseDAO(conexao);
+                    JogoBaseDAO dao = new JogoBaseDAO();
                     // setando variável global jogoBase pra ser o jogo que eu busquei pelo idSelecionado abaixo
                     jogoBase = dao.buscarPorId(idSelecionado);
 
@@ -137,8 +134,7 @@ public class VerListaJogos extends JPanel {
                     int idSelecionado = (int) table1.getValueAt(selectedRow, 0);
 
                     try{
-                        Connection connection = DataBaseConnection.getconnection();
-                        JogoBaseDAO dao = new JogoBaseDAO(connection);
+                        JogoBaseDAO dao = new JogoBaseDAO();
                         dao.deletar(idSelecionado);
 
                         //Remove da tabela

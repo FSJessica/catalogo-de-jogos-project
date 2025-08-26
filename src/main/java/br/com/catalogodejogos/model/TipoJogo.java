@@ -19,4 +19,9 @@ public class TipoJogo {
     public void setDescricaoTipoJogo(String descricaoTipoJogo) {
         this.descricaoTipoJogo = descricaoTipoJogo;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoTipoJogo();
+    }
 }

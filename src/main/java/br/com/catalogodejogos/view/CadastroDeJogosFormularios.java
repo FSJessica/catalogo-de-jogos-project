@@ -1,9 +1,15 @@
 package br.com.catalogodejogos.view;
 
 import br.com.catalogodejogos.app.Main;
+import br.com.catalogodejogos.dao.DificuldadeDAO;
 import br.com.catalogodejogos.dao.JogoBaseDAO;
+import br.com.catalogodejogos.dao.ModoJogoDAO;
+import br.com.catalogodejogos.dao.TipoJogoDAO;
 import br.com.catalogodejogos.infra.DataBaseConnection;
+import br.com.catalogodejogos.model.Dificuldade;
 import br.com.catalogodejogos.model.JogoBase;
+import br.com.catalogodejogos.model.ModoJogo;
+import br.com.catalogodejogos.model.TipoJogo;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -27,12 +33,27 @@ public class CadastroDeJogosFormularios {
     private JButton processarButton;
     private JPanel rootPanel;
     private JButton voltarButton;
+    private JComboBox<String> dificuldadeComboBox;
+    private JComboBox<String> tipoJogoComboBox;
+    private JComboBox<String> modoJogoComboBox;
 
 
     public CadastroDeJogosFormularios(){
+        try {
+            DificuldadeDAO dao = new DificuldadeDAO();
+            TipoJogoDAO tipoDao = new TipoJogoDAO();
+            ModoJogoDAO modoDao = new ModoJogoDAO();
+            dificuldadeComboBox.setModel(new DefaultComboBoxModel(dao.ler().toArray()));
+            tipoJogoComboBox.setModel(new DefaultComboBoxModel(tipoDao.ler().toArray()));
+            modoJogoComboBox.setModel(new DefaultComboBoxModel(modoDao.ler().toArray()));
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
         processarButton.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 // Validação de campos obrigatórios:
                 String nome = nomeTextField.getText().trim();
                 String descricao = descricaoJogoTextField.getText().trim();
@@ -74,7 +95,6 @@ public class CadastroDeJogosFormularios {
                 StringBuilder sb = new StringBuilder();
 
 
-
 //              Construção do objeto:
                 JogoBase jogoBase = new JogoBase();
                 jogoBase.setNome(nomeTextField.getText());
@@ -92,9 +112,17 @@ public class CadastroDeJogosFormularios {
 
 
                 try {
-                    Connection conexao = DataBaseConnection.getconnection();
-                    JogoBaseDAO dao = new JogoBaseDAO(conexao);
-                    dao.criar(jogoBase);
+                    JogoBaseDAO dao = new JogoBaseDAO();
+                    int idCriado = dao.criar(jogoBase);
+                    DificuldadeDAO dificuldadeDao = new DificuldadeDAO();
+                    TipoJogoDAO tipoJogoDao = new TipoJogoDAO();
+                    ModoJogoDAO modoJogoDao = new ModoJogoDAO();
+                    Dificuldade d = (Dificuldade) dificuldadeComboBox.getSelectedItem();
+                    TipoJogo t = (TipoJogo) tipoJogoComboBox.getSelectedItem();
+                    ModoJogo m = (ModoJogo) modoJogoComboBox.getSelectedItem();
+                    dificuldadeDao.criarAssociacao(d.getIdDificuldade(), idCriado);
+                    tipoJogoDao.criarAssociacao(t.getIdTipoJogo(), idCriado);
+                    modoJogoDao.criarAssociacao(m.getIdModoJogo(), idCriado);
                     JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException ex) {

@@ -19,4 +19,9 @@ public class ModoJogo {
     public void setDescricaoModoJogo(String descricaoModoJogo) {
         this.descricaoModoJogo = descricaoModoJogo;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoModoJogo();
+    }
 }

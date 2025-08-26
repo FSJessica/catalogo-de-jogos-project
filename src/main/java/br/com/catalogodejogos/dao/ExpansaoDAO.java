@@ -1,21 +1,16 @@
 package br.com.catalogodejogos.dao;
 
+import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.Expansao;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class    ExpansaoDAO {
-    private Connection connection;
-
-    public ExpansaoDAO(Connection connection){
-        this.connection = connection;
-
-    }
 
     public void criar (Expansao expansao) throws SQLException{
-        String sql = "INSERT INTO tb_expansao (nome_exps, descricao_exps, qtd_min_jogador_exps, qtd_max_jogadpr_exps, detalhe_qtd_jogador_exps, idade_min_exps, detalhe_idade_min_exps, duracao_min_prtd_exps, duracao_max_prtd_exps, detalhe_duracao_prtd_exps, id_jogo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        String sql = "INSERT INTO tb_expansao (nome_exps, descricao_exps, qtd_min_jogador_exps, qtd_max_jogador_exps, detalhe_qtd_jogador_exps, idade_min_exps, detalhe_idade_min_exps, duracao_min_prtd_exps, duracao_max_prtd_exps, detalhe_duracao_prtd_exps, id_jogo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setString(1, expansao.getNomeExps());
         statement.setString(2, expansao.getDescricaoExps());
         statement.setInt(3, expansao.getQtdMinJogadorExps());
@@ -34,7 +29,7 @@ public class    ExpansaoDAO {
     public List<Expansao> lerPorJogo(int idJogo) throws SQLException {
         List<Expansao> lista = new ArrayList<>();
         String sql = "SELECT * FROM tb_expansao WHERE id_jogo = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = DataBaseConnection.getconnection().prepareStatement(sql);
         stmt.setInt(1, idJogo);
         ResultSet rs = stmt.executeQuery();
         while (rs.next()) {
@@ -49,7 +44,7 @@ public class    ExpansaoDAO {
 
     public Expansao buscarExpansao (int idExpansao) throws SQLException{
         String sql = "SELECT * FROM tb_expansao WHERE id_expansao = ?";
-        PreparedStatement stmt = connection.prepareStatement(sql);
+        PreparedStatement stmt = DataBaseConnection.getconnection().prepareStatement(sql);
         stmt.setInt(1, idExpansao);
         ResultSet rs = stmt.executeQuery();
         if (rs.next()) {
@@ -75,7 +70,7 @@ public class    ExpansaoDAO {
 
     public void atualizar (Expansao expansao) throws SQLException{
         String sql = "UPDATE tb_expansao SET nome_exps = ?,descricao_exps = ?, imagem_exps=?, qtd_min_jogador_exps =?, qtd_max_jogador_exps = ?, detalhe_qtd_jogador_exps = ?, idade_min_exps = ?, detalhe_idade_min_exps = ?, duracao_min_prtd_exps = ?, duracao_max_prtd_exps = ?, detalhe_duracao_prtd_exps = ? WHERE id_expansao = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setString(1, expansao.getNomeExps());
         statement.setString(2, expansao.getDescricaoExps());
         statement.setBytes(3, expansao.getImagemExps());
@@ -93,7 +88,7 @@ public class    ExpansaoDAO {
 
     public void deletar (int id) throws SQLException{
         String sql = "DELETE FROM tb_expansao WHERE id_expansao = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setInt(1, id);
         statement.executeUpdate();
     }

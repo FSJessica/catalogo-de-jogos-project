@@ -112,8 +112,7 @@ public class CadastrarExpansao extends JPanel{
 
 
                 try {
-                    Connection conexao = DataBaseConnection.getconnection();
-                    ExpansaoDAO dao = new ExpansaoDAO(conexao);
+                    ExpansaoDAO dao = new ExpansaoDAO();
                     dao.criar(expansao);
                     JOptionPane.showMessageDialog(null, "Expansão criada com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
 
