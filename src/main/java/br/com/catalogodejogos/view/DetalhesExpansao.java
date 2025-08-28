@@ -74,8 +74,7 @@ public class DetalhesExpansao extends JPanel{
                     expansao.setDuracaoMaxPrtdExps((int)duracaoMaxPrtdExpsSpinner.getValue());
                     expansao.setDetalheDuracaoPrtdExps(detalhesDuracaoPrtdExpsTextField.getText());
 
-                    var conexao = getconnection();
-                    var dao = new ExpansaoDAO(conexao);
+                    var dao = new ExpansaoDAO();
                     dao.atualizar(expansao);
 
                     JOptionPane.showMessageDialog(null, "Jogo atualizado!");

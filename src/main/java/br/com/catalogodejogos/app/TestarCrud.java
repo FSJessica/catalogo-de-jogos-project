@@ -23,7 +23,7 @@ public class TestarCrud {
     }
 
     public static void testaTipoJogo(Connection conn) throws SQLException {
-        TipoJogoDAO dao = new TipoJogoDAO(conn);
+        TipoJogoDAO dao = new TipoJogoDAO();
 
         // Inserir
         TipoJogo novo = new TipoJogo();
@@ -33,7 +33,7 @@ public class TestarCrud {
 
         // Buscar primeiro dado inserido de cada tabela
         TipoJogo tipoJogo = dao.ler().getFirst();
-        JogoBaseDAO jbDao = new JogoBaseDAO(conn);
+        JogoBaseDAO jbDao = new JogoBaseDAO();
         JogoBase jogoBase = jbDao.ler().getFirst();
 
         criarAssociacaoEntreJogoBaseTipoJogo(conn, jogoBase.getIdJogo(), tipoJogo.getIdTipoJogo());

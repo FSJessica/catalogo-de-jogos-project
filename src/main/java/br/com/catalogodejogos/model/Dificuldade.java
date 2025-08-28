@@ -19,4 +19,9 @@ public class Dificuldade {
     public void setDescricaoDificuldadeJogo(String descricaoDificuldadeJogo) {
         this.descricaoDificuldadeJogo = descricaoDificuldadeJogo;
     }
+
+    @Override
+    public String toString() {
+        return getDescricaoDificuldadeJogo();
+    }
 }

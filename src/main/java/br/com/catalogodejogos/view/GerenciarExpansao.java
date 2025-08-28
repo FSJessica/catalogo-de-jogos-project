@@ -42,8 +42,7 @@ public class GerenciarExpansao extends JPanel{
 
         DefaultTableModel model = new DefaultTableModel(new String[]{"ID", "Nome", "Descrição"}, 0);
         try {
-            Connection conexao = DataBaseConnection.getconnection();
-            ExpansaoDAO dao = new ExpansaoDAO(conexao);
+            ExpansaoDAO dao = new ExpansaoDAO();
             listExpansao = dao.lerPorJogo(jogoBase.getIdJogo());
 
             for(Expansao expansao1 : listExpansao){
@@ -80,8 +79,7 @@ public class GerenciarExpansao extends JPanel{
                 int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
 
                 try{
-                    Connection conexao = DataBaseConnection.getconnection();
-                    ExpansaoDAO dao = new ExpansaoDAO(conexao);
+                    ExpansaoDAO dao = new ExpansaoDAO();
                     // setando variável global jogoBase pra ser o jogo que eu busquei pelo idSelecionado abaixo
                     expansao = dao.buscarExpansao(idSelecionado);
 
@@ -111,15 +109,14 @@ public class GerenciarExpansao extends JPanel{
                     int idSelecionado = (int) table1.getModel().getValueAt(selectedRow, 0);
 
                     try{
-                        Connection connection = DataBaseConnection.getconnection();
-                        ExpansaoDAO dao = new ExpansaoDAO(connection);
+                        ExpansaoDAO dao = new ExpansaoDAO();
                         dao.deletar(idSelecionado);
 
                         //Remove da tabela
                         DefaultTableModel model = (DefaultTableModel) table1.getModel();
                         model.removeRow(selectedRow);
 
-                        JOptionPane.showMessageDialog(null, "Jogo deletado!");
+                        JOptionPane.showMessageDialog(null, "Expansão deletada!");
                     } catch (SQLException ex){
                         ex.printStackTrace();
                         JOptionPane.showMessageDialog(null, "Erro ao tentar deletar: " + ex.getMessage());

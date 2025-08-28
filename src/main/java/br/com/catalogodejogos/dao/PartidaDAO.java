@@ -1,5 +1,6 @@
 package br.com.catalogodejogos.dao;
 
+import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.Partida;
 import java.sql.*;
 import java.time.Duration;
@@ -9,16 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PartidaDAO {
-    private Connection connection;
-
-    public PartidaDAO(Connection connection){
-        this.connection = connection;
-
-    }
 
     public void criar (Partida partida) throws SQLException{
         String sql = "INSERT INTO tb_partida (data_prtd, duracao_prtd, qtd_jogador_prtd, participantes_prtd, vencedor, comentario_prtd) VALUES (?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setDate(1, Date.valueOf(partida.getData().toString()));
         statement.setShort(2, partida.getDuracao());
         statement.setShort(3, partida.getQtdJogadorPrtd());
@@ -32,7 +27,7 @@ public class PartidaDAO {
     public List<Partida> ler() throws SQLException{
         List<Partida> listPartidas = new ArrayList<>();
         String sql = "SELECT * FROM tb_partida";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()){
@@ -51,7 +46,7 @@ public class PartidaDAO {
 
     public void atualizar (Partida partida) throws SQLException{
         String sql = "UPDATE tb_partida SET data_prtd = ?, qtd_jogador_prtd = ? WHERE id_partida = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setDate(1, Date.valueOf(partida.getData().toString()));
         statement.setInt(2, partida.getQtdJogadorPrtd());
         statement.setInt(3, partida.getIdPartida());
@@ -60,7 +55,7 @@ public class PartidaDAO {
 
     public void deletar (int id) throws SQLException{
         String sql = "DELETE FROM tb_partida WHERE id_partida =?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setInt(1, id);
         statement.executeUpdate();
     }

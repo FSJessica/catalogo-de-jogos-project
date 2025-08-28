@@ -70,8 +70,7 @@ public class DetalhesJogos extends JPanel{
                     jogoBase.setDetalheDuracaoPrtd(detalheDuracaoPrtdTextField.getText());
                     jogoBase.setComentarios(comentariosTextField.getText());
 
-                    var conexao = getconnection();
-                    var dao = new JogoBaseDAO(conexao);
+                    var dao = new JogoBaseDAO();
                     dao.atualizar(jogoBase);
 
                     JOptionPane.showMessageDialog(null, "Jogo atualizado!");

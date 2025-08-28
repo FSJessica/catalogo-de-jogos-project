@@ -1,23 +1,19 @@
 package br.com.catalogodejogos.dao;
 
 
+import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.JogoBase;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JogoBaseDAO {
-    private Connection connection;
 
-    public JogoBaseDAO(Connection connection){
-        this.connection = connection;
 
-    }
-
-    public void criar (JogoBase jogobase) throws SQLException{
+    public int criar (JogoBase jogobase) throws SQLException{
         //String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios) VALUES (teste, 2, 2, teste, 2, teste, 2, 2, teste, teste)";
         String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios, descricao_jogo_base) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, jogobase.getNome());
         statement.setInt(2,jogobase.getQtdMinJogador());
         statement.setInt(3, jogobase.getQtdMaxJogador());
@@ -30,13 +26,20 @@ public class JogoBaseDAO {
         statement.setString(10, jogobase.getComentarios());
         statement.setString(11, jogobase.getDescricaoJogo());
         statement.executeUpdate();
+        ResultSet generatedKeys = statement.getGeneratedKeys();
+
+        int i = 0;
+        if (generatedKeys.next()){
+            i = generatedKeys.getInt(1);
+        }
         statement.close();
+        return i;
     }
 
     public List<JogoBase> ler() throws SQLException{
         List<JogoBase> listjogobase = new ArrayList<>();
         String sql = "SELECT * FROM tb_jogo_base";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
 
         while (resultSet.next()){
@@ -60,7 +63,7 @@ public class JogoBaseDAO {
 
     public JogoBase buscarPorId(int id) throws SQLException{
         String sql = "SELECT * FROM tb_jogo_base WHERE id_jogo = ?";
-        try(PreparedStatement statement = connection.prepareStatement(sql)){
+        try(PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql)){
             statement.setInt(1,id);
             try (ResultSet rs = statement.executeQuery()){
                 if(rs.next()){
@@ -87,7 +90,7 @@ public class JogoBaseDAO {
 
     public void atualizar(JogoBase jogobase) throws  SQLException{
         String sql = "UPDATE tb_jogo_base SET nome = ?, descricao_jogo_base =?, imagem = ?, qtd_min_jogador = ?, qtd_max_jogador = ?, detalhe_qtd_jogador = ? , idade_min = ?, detalhe_idade_min = ?, duracao_min_prtd = ?, duracao_max_prtd = ?, detalhe_duracao_prtd = ?,  comentarios = ? WHERE id_jogo = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setString(1, jogobase.getNome());
         statement.setString(2, jogobase.getDescricaoJogo());
         statement.setBytes(3, jogobase.getImagem());
@@ -108,7 +111,7 @@ public class JogoBaseDAO {
 
     public void deletar (int id) throws SQLException{
         String sql = "DELETE FROM tb_jogo_base WHERE id_jogo = ?";
-        PreparedStatement statement = connection.prepareStatement(sql);
+        PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
         statement.setInt(1, id);
         statement.executeUpdate();
         statement.close();

@@ -31,7 +31,7 @@ public class DataBaseInitializer {
             String createTbDificuldade = """
                     CREATE TABLE IF NOT EXISTS tb_dificuldade (
                     	id_dificuldade SERIAL PRIMARY KEY,
-                    	descricao_jogo VARCHAR(1000)
+                    	descricao_dificuldade VARCHAR(1000) UNIQUE NOT NULL
                     );
                     """;
 
@@ -52,7 +52,7 @@ public class DataBaseInitializer {
             String createTbModoJogo = """
                     CREATE TABLE IF NOT EXISTS tb_modo_jogo(
                     	id_modo_jogo SERIAL PRIMARY KEY,
-                    	descricao_modo_jogo VARCHAR(1000) NOT NULL
+                    	descricao_modo_jogo VARCHAR(1000) NOT NULL UNIQUE
                     );
                     """;
 
@@ -73,7 +73,7 @@ public class DataBaseInitializer {
             String createTbTipoJogo = """
                     CREATE TABLE IF NOT EXISTS tb_tipo_jogo(
                     	id_tipo_jogo SERIAL PRIMARY KEY,
-                    	descricao_tipo_jogo VARCHAR(1000) NOT NULL
+                    	descricao_tipo_jogo VARCHAR(1000) NOT NULL UNIQUE
                     );
                     """;
 
@@ -127,6 +127,25 @@ public class DataBaseInitializer {
                     );
                     """;
 
+            //inserir dados na tabela dificuldade
+            String insertTbDificuldade = """
+                    INSERT INTO tb_dificuldade (descricao_dificuldade) VALUES ('Fácil'), ('Médio'), ('Difícil'), ('Extremo'), ('Insano'), ('Múltiplas dificuldades')
+                    ON CONFLICT DO NOTHING;
+                    """;
+
+            //Inserir dados na tabela tipo jogo
+            String insertTbTipoJogo = """
+                    INSERT INTO tb_tipo_jogo (descricao_tipo_jogo) VALUES ('Estratégia'), ('Cartas'),('Blefe'),('Gerenciamento de recursos'),
+                    ('Party Games'),('Mímica'),('Comunicação'),('Desenhos'),('Contação de histórias'),('Caótico'),
+                    ('Cozy'),('Picante'),('Trivia'), ('Puzzle')
+                    ON CONFLICT DO NOTHING;
+                    """;
+
+            String insertTbModoJogo = """
+                    INSERT INTO tb_modo_jogo (descricao_modo_jogo) VALUES ('Cooperativo'),('Competitivo'),('Múltiplos Modos'),('Single Player')
+                    ON CONFLICT DO NOTHING;
+                    """;
+
             // Executando os comandos
             stmt.execute(createTbJogoBase);
             stmt.execute(createTbDificuldade);
@@ -137,6 +156,9 @@ public class DataBaseInitializer {
             stmt.execute(createTbAssociacaoTipoJogoBase);
             stmt.execute(createTbExpansao);
             stmt.execute(createTbPartida);
+            stmt.execute(insertTbModoJogo);
+            stmt.execute(insertTbTipoJogo);
+            stmt.execute(insertTbDificuldade);
 
             System.out.println("Tabelas criadas/verificadas com sucesso.");
 
