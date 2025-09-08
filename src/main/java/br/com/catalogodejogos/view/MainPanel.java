@@ -12,11 +12,13 @@ import static br.com.catalogodejogos.app.Main.frame;
 public class MainPanel extends JPanel{
     private JButton cadastrarUmNovoJogoButton;
     private JButton verListaDeJogosButton;
+    private JButton configuracoesAvancadasButton;
 
     public MainPanel() {
         // Inicializando os botões
         cadastrarUmNovoJogoButton = new JButton("Cadastrar um novo jogo");
         verListaDeJogosButton = new JButton("Ver lista de jogos");
+        configuracoesAvancadasButton = new JButton("Configurações Avançadas");
 
         //adicionar ação aos botões
         cadastrarUmNovoJogoButton.addActionListener(new ActionListener() {
@@ -39,6 +41,14 @@ public class MainPanel extends JPanel{
         setLayout(new FlowLayout());
         add(cadastrarUmNovoJogoButton);
         add(verListaDeJogosButton);
+        add(configuracoesAvancadasButton);
+
+        configuracoesAvancadasButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
     public static void updateFrameWithNewPanel (JPanel panel) {
         frame.setContentPane(panel);
