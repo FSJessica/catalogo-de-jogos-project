@@ -46,7 +46,9 @@ public class MainPanel extends JPanel{
         configuracoesAvancadasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                // ação do botão
+                ConfiguracoesAvancadas configuracoesAvancadas = new ConfiguracoesAvancadas();
+                Main.updateFrameWithNewPanel(configuracoesAvancadas);
             }
         });
     }
