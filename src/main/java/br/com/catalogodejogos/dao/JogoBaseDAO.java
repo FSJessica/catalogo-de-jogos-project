@@ -11,8 +11,7 @@ public class JogoBaseDAO {
 
 
     public int criar (JogoBase jogobase) throws SQLException{
-        //String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios) VALUES (teste, 2, 2, teste, 2, teste, 2, 2, teste, teste)";
-        String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios, descricao_jogo_base) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tb_jogo_base (nome, qtd_min_jogador, qtd_max_jogador, detalhe_qtd_jogador, idade_min, detalhe_idade_min, duracao_min_prtd, duracao_max_prtd, detalhe_duracao_prtd, comentarios, descricao_jogo_base, imagem) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
         statement.setString(1, jogobase.getNome());
         statement.setInt(2,jogobase.getQtdMinJogador());
@@ -25,6 +24,7 @@ public class JogoBaseDAO {
         statement.setString(9, jogobase.getDetalheDuracaoPrtd());
         statement.setString(10, jogobase.getComentarios());
         statement.setString(11, jogobase.getDescricaoJogo());
+        statement.setBytes(12,jogobase.getImagem());
         statement.executeUpdate();
         ResultSet generatedKeys = statement.getGeneratedKeys();
 
@@ -56,6 +56,7 @@ public class JogoBaseDAO {
             jb.setDetalheDuracaoPrtd(resultSet.getString("detalhe_duracao_prtd"));
             jb.setComentarios(resultSet.getString("comentarios"));
             jb.setDescricaoJogo(resultSet.getString("descricao_jogo_base"));
+            jb.setImagem(resultSet.getBytes("imagem"));
             listjogobase.add(jb);
         }
         return listjogobase;
@@ -80,6 +81,7 @@ public class JogoBaseDAO {
                     jogoBase.setDetalheDuracaoPrtd(rs.getString("detalhe_duracao_prtd"));
                     jogoBase.setComentarios(rs.getString("comentarios"));
                     jogoBase.setDescricaoJogo(rs.getString("descricao_jogo_base"));
+                    jogoBase.setImagem(rs.getBytes("imagem"));
                     return jogoBase;
 
                 }
