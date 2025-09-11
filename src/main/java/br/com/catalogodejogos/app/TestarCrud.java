@@ -28,7 +28,7 @@ public class TestarCrud {
         // Inserir
         TipoJogo novo = new TipoJogo();
         novo.setDescricaoTipoJogo("deeeeeeeeescricaotiiiiiiiiiiiipojoooooooogo");
-        dao.criar(novo);
+//        dao.criar(novo);
         System.out.println(" ok!");
 
         // Buscar primeiro dado inserido de cada tabela

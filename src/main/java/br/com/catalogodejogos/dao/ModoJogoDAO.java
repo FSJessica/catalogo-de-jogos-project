@@ -9,10 +9,10 @@ import java.util.List;
 
 public class ModoJogoDAO {
 
-    public void criar (ModoJogo modoJogo) throws SQLException{
+    public void criar (String descricao) throws SQLException{
         String sql = "INSERT INTO tb_modo_jogo (descricao_modo_jogo) VALUES (?)";
         PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
-        statement.setString(1, modoJogo.getDescricaoModoJogo());
+        statement.setString(1, descricao);
         statement.executeUpdate();
         statement.close();
     }
