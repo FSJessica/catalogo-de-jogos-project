@@ -8,10 +8,10 @@ import java.util.List;
 
 public class DificuldadeDAO {
 
-    public void criar (Dificuldade dificuldade) throws SQLException{
+    public void criar (String descricao) throws SQLException{
         String sql = "INSERT INTO tb_dificuldade (descricao_dificuldade) VALUES (?)";
         PreparedStatement statement = DataBaseConnection.getconnection().prepareStatement(sql);
-        statement.setString(1, dificuldade.getDescricaoDificuldadeJogo());
+        statement.setString(1, descricao);
         statement.executeUpdate();
         statement.close();
     }

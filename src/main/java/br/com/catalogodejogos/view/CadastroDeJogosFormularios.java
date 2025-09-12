@@ -11,9 +11,16 @@ import br.com.catalogodejogos.model.JogoBase;
 import br.com.catalogodejogos.model.ModoJogo;
 import br.com.catalogodejogos.model.TipoJogo;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -36,6 +43,7 @@ public class CadastroDeJogosFormularios {
     private JComboBox<String> dificuldadeComboBox;
     private JComboBox<String> tipoJogoComboBox;
     private JComboBox<String> modoJogoComboBox;
+    private JLabel imagemLabel;
 
 
     public CadastroDeJogosFormularios(){
@@ -109,8 +117,6 @@ public class CadastroDeJogosFormularios {
                 jogoBase.setIdadeMin((int) idadeMinimaSpinner.getValue());
                 jogoBase.setDuracaoMinPrtd((int) duracaoMinimaPartidaSpinner.getValue());
                 jogoBase.setDuracaoMaxPrtd((int) duracaoMaximaPartidaSpinner.getValue());
-
-
                 try {
                     JogoBaseDAO dao = new JogoBaseDAO();
                     int idCriado = dao.criar(jogoBase);
@@ -138,6 +144,19 @@ public class CadastroDeJogosFormularios {
             @Override
             public void actionPerformed(ActionEvent e) {
                 System.out.println("Bucar arquivos pressionado!");
+                JFileChooser chooser = new JFileChooser();
+                chooser.showDialog(rootPanel, "teste");
+                try {
+                    File file = chooser.getSelectedFile();
+                    BufferedImage bufferedImage = ImageIO.read(file);
+                    Image resizedBufferedImage = bufferedImage.getScaledInstance(200, 200, Image.SCALE_SMOOTH);
+                    ImageIcon imageIcon = new ImageIcon(resizedBufferedImage);
+                    imagemLabel.setIcon(imageIcon);
+                    System.err.println(file.getAbsolutePath());
+
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
 
