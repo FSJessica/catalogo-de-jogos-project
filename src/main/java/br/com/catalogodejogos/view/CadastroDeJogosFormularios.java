@@ -5,7 +5,6 @@ import br.com.catalogodejogos.dao.DificuldadeDAO;
 import br.com.catalogodejogos.dao.JogoBaseDAO;
 import br.com.catalogodejogos.dao.ModoJogoDAO;
 import br.com.catalogodejogos.dao.TipoJogoDAO;
-import br.com.catalogodejogos.infra.DataBaseConnection;
 import br.com.catalogodejogos.model.Dificuldade;
 import br.com.catalogodejogos.model.JogoBase;
 import br.com.catalogodejogos.model.ModoJogo;
@@ -17,12 +16,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
-import java.awt.image.RenderedImage;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class CadastroDeJogosFormularios {
     private JTextField nomeTextField;
@@ -44,16 +42,24 @@ public class CadastroDeJogosFormularios {
     private JComboBox<String> tipoJogoComboBox;
     private JComboBox<String> modoJogoComboBox;
     private JLabel imagemLabel;
-
+    private JList<JCheckBox> dificuldadeJlist;
+    private final Map<Integer, Boolean> dificuldadeStates = new HashMap<>();
 
     public CadastroDeJogosFormularios(){
+        DefaultListModel<JCheckBox> model  = new DefaultListModel<>();
+
         try {
             DificuldadeDAO dao = new DificuldadeDAO();
             TipoJogoDAO tipoDao = new TipoJogoDAO();
             ModoJogoDAO modoDao = new ModoJogoDAO();
-            dificuldadeComboBox.setModel(new DefaultComboBoxModel(dao.ler().toArray()));
-            tipoJogoComboBox.setModel(new DefaultComboBoxModel(tipoDao.ler().toArray()));
-            modoJogoComboBox.setModel(new DefaultComboBoxModel(modoDao.ler().toArray()));
+
+            dificuldadeJlist.setModel(model);
+            for (Dificuldade dificuldade: dao.ler()){
+                JCheckBox dificuldadeCheckbox = new JCheckBox(dificuldade.getDescricaoDificuldadeJogo());
+                dificuldadeStates.put(dificuldade.getIdDificuldade(), false);
+                model.addElement(dificuldadeCheckbox);
+            }
+            dificuldadeJlist.setCellRenderer(new CheckboxListCellRenderer(dificuldadeStates));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -166,6 +172,20 @@ public class CadastroDeJogosFormularios {
             public void actionPerformed (ActionEvent e){
                 MainPanel mainPanel = new MainPanel();
                 Main.updateFrameWithNewPanel(mainPanel);
+            }
+        });
+
+        //listenet da seleção de checkbox de dificuldade
+        dificuldadeJlist.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()){
+                int index = dificuldadeJlist.getSelectedIndex();
+                if(index != -1){
+                    JCheckBox checkBox = model.getElementAt(index);
+                    boolean currentState = dificuldadeStates.get(index);
+                    dificuldadeStates.put(index, !currentState);
+                    checkBox.setSelected(!currentState);
+                    dificuldadeJlist.repaint();
+                }
             }
         });
     }
