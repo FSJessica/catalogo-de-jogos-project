@@ -38,33 +38,51 @@ public class CadastroDeJogosFormularios {
     private JButton processarButton;
     private JPanel rootPanel;
     private JButton voltarButton;
-    private JComboBox<String> dificuldadeComboBox;
-    private JComboBox<String> tipoJogoComboBox;
-    private JComboBox<String> modoJogoComboBox;
     private JLabel imagemLabel;
-    private JList<JCheckBox> dificuldadeJlist;
-    private final Map<Integer, Boolean> dificuldadeStates = new HashMap<>();
+    private JPanel dificuldadePanel;
+    private JPanel tipoJogoPanel;
+    private JPanel modoJogoPanel;
 
-    public CadastroDeJogosFormularios(){
-        DefaultListModel<JCheckBox> model  = new DefaultListModel<>();
+
+    public CadastroDeJogosFormularios() {
+//        DefaultListModel<JCheckBox> model = new DefaultListModel<>();
+
 
         try {
             DificuldadeDAO dao = new DificuldadeDAO();
             TipoJogoDAO tipoDao = new TipoJogoDAO();
             ModoJogoDAO modoDao = new ModoJogoDAO();
 
-            dificuldadeJlist.setModel(model);
-            for (Dificuldade dificuldade: dao.ler()){
-                JCheckBox dificuldadeCheckbox = new JCheckBox(dificuldade.getDescricaoDificuldadeJogo());
-                dificuldadeStates.put(dificuldade.getIdDificuldade(), false);
-                model.addElement(dificuldadeCheckbox);
+            JPanel checkPanel = new JPanel(new GridLayout(0,2));
+            dificuldadePanel.add(checkPanel, BorderLayout.CENTER);
+            for (Dificuldade dificuldade : dao.ler()) {
+                checkPanel.add(new JCheckBox(dificuldade.getDescricaoDificuldadeJogo()));
             }
-            dificuldadeJlist.setCellRenderer(new CheckboxListCellRenderer(dificuldadeStates));
+
+
+            JPanel tipoCheckPanel = new JPanel(new GridLayout(0,2));
+            tipoJogoPanel.add(tipoCheckPanel, BorderLayout.CENTER);
+            for (TipoJogo tipoJogo : tipoDao.ler()) {
+                tipoCheckPanel.add(new JCheckBox(tipoJogo.getDescricaoTipoJogo()));
+            }
+
+            JPanel modoCheckPanel = new JPanel(new GridLayout(0,2));
+            modoJogoPanel.add(modoCheckPanel, BorderLayout.CENTER);
+            for (ModoJogo modoJogo : modoDao.ler()) {
+                modoCheckPanel.add(new JCheckBox(modoJogo.getDescricaoModoJogo()));
+            }
+
+//            dificuldadeJlist.setModel(model);
+//            for (Dificuldade dificuldade : dao.ler()) {
+//                JCheckBox dificuldadeCheckbox = new JCheckBox(dificuldade.getDescricaoDificuldadeJogo());
+//                dificuldadeStates.put(dificuldade.getIdDificuldade(), false);
+//                model.addElement(dificuldadeCheckbox);
+//            }
+//            dificuldadeJlist.setCellRenderer(new CheckboxListCellRenderer(dificuldadeStates));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-        processarButton.addActionListener(new ActionListener(){
+        processarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
@@ -72,13 +90,13 @@ public class CadastroDeJogosFormularios {
                 String nome = nomeTextField.getText().trim();
                 String descricao = descricaoJogoTextField.getText().trim();
 
-                if (nome.isEmpty()){
+                if (nome.isEmpty()) {
                     JOptionPane.showMessageDialog(null, "O campo 'Nome' é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                if (descricao.isEmpty()){
-                    JOptionPane.showMessageDialog(null, "O campo 'Descrição' é obrigatório!", "Erro",JOptionPane.ERROR_MESSAGE);
+                if (descricao.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "O campo 'Descrição' é obrigatório!", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
@@ -93,17 +111,15 @@ public class CadastroDeJogosFormularios {
                     return;
                 }
 
-                if (qtdMinJog > qtdMaxJog){
-                    JOptionPane.showMessageDialog(null,"Quantidade mínima de jogadores não pode ser maior que a quantidade máxima de jogadores", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (qtdMinJog > qtdMaxJog) {
+                    JOptionPane.showMessageDialog(null, "Quantidade mínima de jogadores não pode ser maior que a quantidade máxima de jogadores", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
 
-                if (duracaoMin > duracaoMax){
-                    JOptionPane.showMessageDialog(null,"Duração mínima da partida não pode ser maior que a duração máxima da partida", "Erro", JOptionPane.ERROR_MESSAGE);
+                if (duracaoMin > duracaoMax) {
+                    JOptionPane.showMessageDialog(null, "Duração mínima da partida não pode ser maior que a duração máxima da partida", "Erro", JOptionPane.ERROR_MESSAGE);
                     return;
                 }
-
-
 
 
                 StringBuilder sb = new StringBuilder();
@@ -129,13 +145,13 @@ public class CadastroDeJogosFormularios {
                     DificuldadeDAO dificuldadeDao = new DificuldadeDAO();
                     TipoJogoDAO tipoJogoDao = new TipoJogoDAO();
                     ModoJogoDAO modoJogoDao = new ModoJogoDAO();
-                    Dificuldade d = (Dificuldade) dificuldadeComboBox.getSelectedItem();
-                    TipoJogo t = (TipoJogo) tipoJogoComboBox.getSelectedItem();
-                    ModoJogo m = (ModoJogo) modoJogoComboBox.getSelectedItem();
-                    dificuldadeDao.criarAssociacao(d.getIdDificuldade(), idCriado);
-                    tipoJogoDao.criarAssociacao(t.getIdTipoJogo(), idCriado);
-                    modoJogoDao.criarAssociacao(m.getIdModoJogo(), idCriado);
-                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
+//                    Dificuldade d = (Dificuldade) dificuldadeComboBox.getSelectedItem();
+//                    TipoJogo t = (TipoJogo) tipoJogoComboBox.getSelectedItem();
+//                    ModoJogo m = (ModoJogo) modoJogoComboBox.getSelectedItem();
+//                    dificuldadeDao.criarAssociacao(d.getIdDificuldade(), idCriado);
+//                    tipoJogoDao.criarAssociacao(t.getIdTipoJogo(), idCriado);
+//                    modoJogoDao.criarAssociacao(m.getIdModoJogo(), idCriado);
+//                    JOptionPane.showMessageDialog(null, "Cadastro realizado com sucesso!", "Informações", JOptionPane.INFORMATION_MESSAGE);
 
                 } catch (SQLException ex) {
                     JOptionPane.showMessageDialog(null, "Cadastro falhou!", "Informações", JOptionPane.INFORMATION_MESSAGE);
@@ -169,27 +185,27 @@ public class CadastroDeJogosFormularios {
         //botão de voltar
         voltarButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed (ActionEvent e){
+            public void actionPerformed(ActionEvent e) {
                 MainPanel mainPanel = new MainPanel();
                 Main.updateFrameWithNewPanel(mainPanel);
             }
         });
 
-        //listenet da seleção de checkbox de dificuldade
-        dificuldadeJlist.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()){
-                int index = dificuldadeJlist.getSelectedIndex();
-                if(index != -1){
-                    JCheckBox checkBox = model.getElementAt(index);
-                    boolean currentState = dificuldadeStates.get(index);
-                    dificuldadeStates.put(index, !currentState);
-                    checkBox.setSelected(!currentState);
-                    dificuldadeJlist.repaint();
-                }
-            }
-        });
+//        //listener da seleção de checkbox de dificuldade
+//        dificuldadeJlist.addListSelectionListener(e -> {
+//            if (!e.getValueIsAdjusting()) {
+//                int index = dificuldadeJlist.getSelectedIndex();
+//                if (index != -1) {
+//                    JCheckBox checkBox = model.getElementAt(index);
+//                    boolean currentState = dificuldadeStates.get(index);
+//                    dificuldadeStates.put(index, !currentState);
+//                    checkBox.setSelected(!currentState);
+//                    dificuldadeJlist.repaint();
+//                }
+//            }
+//        });
     }
-    public JPanel getRootPanel() {
-        return rootPanel;
-    }
+        public JPanel getRootPanel () {
+            return rootPanel;
+        }
 }
